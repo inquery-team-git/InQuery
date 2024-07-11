@@ -17,10 +17,10 @@ InQuery's Engine Observability tool enables Trino platform developers to monitor
 
 Key features include:
 
-Cluster resource utilization
-Cluster -> coordinator -> worker drill down
-User/source/table usage patterns
-Active query metrics
+Cluster resource utilization<br>
+Cluster -> coordinator -> worker drill down<br>
+User/source/table usage patterns<br>
+Active query metrics<br>
 
 This platform was designed to make it easier to debug, tune, and optimize Trino deployments at your organization.
 
@@ -39,11 +39,11 @@ To start using InQuery's tools, refer to the specific project documentation with
 ## Contributing
 We welcome contributions to improve InQuery. To contribute, please follow these steps:
 
-Fork the repository.
-Create a new branch (git checkout -b feature/your-feature-name).
-Make your changes and commit them (git commit -m 'Add some feature').
-Push to the branch (git push origin feature/your-feature-name).
-Create a new Pull Request.
+Fork the repository.<br>
+Create a new branch (git checkout -b feature/your-feature-name).<br>
+Make your changes and commit them (git commit -m 'Add some feature').<br>
+Push to the branch (git push origin feature/your-feature-name).<br>
+Create a new Pull Request.<br>
 
 ## License
 This project is licensed under the MIT License.
