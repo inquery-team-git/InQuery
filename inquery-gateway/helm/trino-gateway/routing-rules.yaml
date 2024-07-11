@@ -1,0 +1,6 @@
+---
+name: "largeQuery"
+description: "if query estimated CPU time is over a minute, route to cluster 1"
+condition: ' Integer.parseInt(request.getHeader("X-Trino-Estimated-Cpu-Time")) > 60 '
+actions:
+  - 'result.put("routingGroup", "cluster_1")'

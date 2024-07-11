@@ -1,0 +1,24 @@
+.changelogSidebar {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e6e6e6;
+  width: 17%;
+  min-width: 200px;
+  max-width: 256px;
+  box-sizing: border-box;
+
+  .createNewEntry {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 15px 20px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+  }
+  .sidebarContents {
+    overflow-y: auto;
+    height: 100%;
+  }
+}

@@ -1,0 +1,34 @@
+[
+    {
+        "query_id": "20240324_183703_00280_z87gs",
+        "used_memory": "200537206",
+        "createtime": "2024-03-24T18:39:04.781Z",
+        "state": "RUNNING",
+        "sessionuser": "Jennifer",
+        "sessionsource": "API"
+    },
+    {
+        "query_id": "20240324_183904_00282_z87gs",
+        "used_memory": "198845720",
+        "createtime": "2024-03-24T18:39:04.882Z",
+        "state": "RUNNING",
+        "sessionuser": "Robert",
+        "sessionsource": "API"
+    },
+    {
+        "query_id": "20240324_183904_00281_z87gs",
+        "used_memory": "198760860",
+        "createtime": "2024-03-24T18:39:04.881Z",
+        "state": "RUNNING",
+        "sessionuser": "Linda",
+        "sessionsource": "API"
+    },
+    {
+        "query_id": "20240319_101020_00452_3shp8",
+        "used_memory": "1313352",
+        "createtime": "2024-03-19T10:10:20.790Z",
+        "state": "FAILED",
+        "sessionuser": "Joe",
+        "sessionsource": "API"
+    }
+]

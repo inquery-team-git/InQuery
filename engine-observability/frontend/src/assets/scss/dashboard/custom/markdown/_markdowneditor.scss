@@ -1,0 +1,57 @@
+.markdown-editor {
+  height: calc(100% - 35px);
+  .quill {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .ql-container {
+    overflow: scroll;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    background: #fefcfc;
+  }
+
+  .ql-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Set dropdown font-families */
+  .ql-toolbar {display: block;
+    background: #eaecec;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+  }
+
+  .ql-snow {
+    .ql-tooltip {
+      left: 15px !important;
+    }
+  }
+
+  /* Set dropdown font-families */
+  .ql-font span[data-label="Ubuntu"]::before {
+    font-family: "Ubuntu";
+  }
+  .ql-font .ql-font span[data-label="Raleway"]::before {
+    font-family: "Raleway";
+  }
+  .ql-font span[data-label="Roboto"]::before {
+    font-family: "Roboto" !important;
+  }
+
+  /* Set content font-families */
+  .ql-font-Raleway {
+    font-family: "Raleway";
+  }
+  .ql-font-Roboto {
+    font-family: "Roboto";
+  }
+  /* We do not set Courier since it is the default font */
+
+
+  img {
+    border: 2px solid #EAECEC;
+    border-radius: 25px;
+  }
+}

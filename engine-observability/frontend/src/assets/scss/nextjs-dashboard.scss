@@ -1,0 +1,91 @@
+/*!
+
+=========================================================
+* NextJS Argon Dashboard - v1.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/nextjs-argon-dashboard
+* Copyright 2021 Inquery (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/nextjs-argon-dashboard/blob/master/LICENSE.md)
+
+* Coded by Inquery
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+
+// Core
+
+@import "dashboard/custom/functions";
+@import "dashboard/custom/variables";
+@import "dashboard/custom/mixins";
+
+// bootstrap (4.3.1) components
+
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/input-group";
+@import "~bootstrap/scss/custom-forms";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/jumbotron";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/media";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/print";
+
+// utilities and components
+
+@import "dashboard/custom/reboot";
+@import "dashboard/custom/utilities";
+@import "dashboard/custom/components";
+
+// Vendor (Plugins)
+
+@import "dashboard/custom/vendors";
+
+// Docs components
+
+@import "dashboard/docs/variables";
+@import "dashboard/docs/nav";
+@import "dashboard/docs/clipboard-js";
+@import "dashboard/docs/component-examples";
+@import "dashboard/docs/prism";
+@import "dashboard/docs/content";
+@import "dashboard/docs/sidebar";
+@import "dashboard/docs/footer";
+@import "dashboard/custom/formgroups/formgroups";
+
+// React Differences
+@import "react/react-differences";
+
+// Admin Pages
+@import "dashboard/custom/changelog/changelog";
+@import "dashboard/custom/auth/auth";
+@import "dashboard/custom/query/query";
+
+// Public Pages
+@import "public/public";

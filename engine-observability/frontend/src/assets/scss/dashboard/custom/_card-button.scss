@@ -1,0 +1,31 @@
+.card-button-container {
+  background-color: #EFEEEF;
+  padding: 5px;
+  border-radius: 8px;
+
+  .button {
+    color: #000;
+    font-size: 15px;
+    line-height: 22px;
+    box-shadow: none;
+    transition: none;
+    background-color: transparent;
+    border: 2px solid #EFEFEF;
+    border-radius: 8px;
+
+    &:hover {
+      color: #000;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .title {
+      font-weight: bold;
+    }
+  }
+
+  .selected {
+    background-color: #FFFFFF;
+    border: 2px solid #525DF9;
+  }
+}

@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  trino:
+    image: trinodb/trino:443
+    container_name: trino
+    hostname: trino
+    volumes:
+      - "./etc/coordinator.properties:/etc/trino/config.properties"
+      - "./etc/node.properties:/etc/trino/node.properties"
+      - "./etc/jvm.config:/etc/trino/jvm.config"
+    ports:
+      - "8080:8080"
+
+  trino-worker:
+    image: trinodb/trino:443
+    container_name: trino-worker
+    volumes:
+      - "./etc/worker.properties:/etc/trino/config.properties"
+      - "./etc/node.properties:/etc/trino/node.properties"
+      - "./etc/jvm.config:/etc/trino/jvm.config"
+    depends_on:
+      - trino
+
+

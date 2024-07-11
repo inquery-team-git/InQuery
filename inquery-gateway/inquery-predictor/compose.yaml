@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5001:5001"
+    environment:
+      FLASK_APP: app.py
+      FLASK_RUN_HOST: 0.0.0.0
+    command: ["gunicorn", "--bind", "0.0.0.0:5001", "app:app", "--workers", "3"]
+    volumes:
+      - .:/app

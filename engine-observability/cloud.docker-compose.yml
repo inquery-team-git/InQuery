@@ -1,0 +1,52 @@
+version: "3.7"
+
+services:
+  redis:
+    image: 'redis:7.2.5'
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  inquery-app:
+    build:
+      context: .
+      args:
+        - NPM_TOKEN=NPM_TOKEN
+    depends_on:
+      - redis
+    environment:
+      DATABASE_TYPE: ${DATABASE_TYPE}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      APP_CLIENT_ID: ${APP_CLIENT_ID}
+    ports:
+      - 3001:3001
+      - 3000:3000
+
+  streaming:
+    build:
+      context: .
+      dockerfile: streaming.Dockerfile
+    environment:
+      DATABASE_TYPE: ${DATABASE_TYPE}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      APP_CLIENT_ID: ${APP_CLIENT_ID}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+    ports:
+      - 3003:3003
+
+volumes:
+  redis_data:
+    driver: local
+

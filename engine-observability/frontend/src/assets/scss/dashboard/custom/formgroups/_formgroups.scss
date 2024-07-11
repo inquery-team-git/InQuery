@@ -1,0 +1,57 @@
+@import "labels";
+@import "checkboxinput";
+@import "actionlink";
+
+.filterSections {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  padding: 20px;
+
+  .sidebarSection {
+    position: relative;
+    margin: 0 0 30px;
+
+    .header {
+      margin: 0 0 5px;
+
+      .action {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .sidebarSection:last-child {
+    margin: 0px;
+  }
+}
+
+.sidebarSection {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 10px;
+
+    .title {
+      font-weight: 600;
+      color: #333;
+      padding: 5px 0;
+    }
+    .action {
+      cursor: pointer;
+      line-height: 22px;
+      color: #888;
+      text-decoration: underline;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: all 0.1s ease-in-out;
+    }
+  }
+}

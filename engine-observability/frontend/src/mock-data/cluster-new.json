@@ -1,0 +1,12 @@
+{
+  "cluster_id": "cluster-587c77cd9d-mb9fh",
+  "status": "active",
+  "name": "Staging Adohoc",
+  "host": "127.0.0.1",
+  "port": 3001,
+  "description": "Prod Adhoc Description",
+  "system_cpu_load": 0.0120481927710843,
+  "mem_usage": "0.00",
+  "system_uptime": 190080,
+  "timestamp": "2024-03-24T18:39:04.881Z"
+}

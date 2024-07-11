@@ -1,0 +1,115 @@
+{
+  "data": [
+      {
+          "query_id": "20240424_135939_00001_nzgvv",
+          "query": "SELECT SearchPhrase FROM all_t WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Khalil",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 15955687785.476608,
+          "cpu_time_millis": "80335"
+      },
+      {
+          "query_id": "20240424_135740_00000_nzgvv",
+          "query": "SELECT SearchPhrase FROM all_t WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Erick",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 34409473319.74896,
+          "cpu_time_millis": "93367"
+      },
+      {
+          "query_id": "20240424_134648_00027_fv8eg",
+          "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM all_t GROUP BY RegionID ORDER BY c DESC LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Erick",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 36131374507097.16,
+          "cpu_time_millis": "127273"
+      },
+      {
+          "query_id": "20240424_134510_00026_fv8eg",
+          "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM all_t GROUP BY RegionID ORDER BY c DESC LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Erick",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 36962242349640.32,
+          "cpu_time_millis": "130010"
+      },
+      {
+          "query_id": "20240424_134327_00025_fv8eg",
+          "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM all_t GROUP BY RegionID ORDER BY c DESC LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Arturas",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 39616582450218.45,
+          "cpu_time_millis": "126198"
+      },
+      {
+          "query_id": "20240424_134134_00024_fv8eg",
+          "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM all_t GROUP BY RegionID ORDER BY c DESC LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Arturas",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 41855939149069.75,
+          "cpu_time_millis": "129550"
+      },
+      {
+          "query_id": "20240424_133938_00023_fv8eg",
+          "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM all_t GROUP BY RegionID ORDER BY c DESC LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Arturas",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 43885173919230.24,
+          "cpu_time_millis": "128477"
+      },
+      {
+          "query_id": "20240424_133737_00022_fv8eg",
+          "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM all_t GROUP BY RegionID ORDER BY c DESC LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Erick",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 44748454748516.914,
+          "cpu_time_millis": "125665"
+      },
+      {
+          "query_id": "20240424_133531_00021_fv8eg",
+          "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM all_t GROUP BY RegionID ORDER BY c DESC LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Arturas",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 47438089097713.18,
+          "cpu_time_millis": "126380"
+      },
+      {
+          "query_id": "20240424_133252_00020_fv8eg",
+          "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM all_t GROUP BY RegionID ORDER BY c DESC LIMIT 10",
+          "query_state": "FINISHED",
+          "user": "Khalil",
+          "source": "API",
+          "catalog": "iceberg",
+          "schema": "postgres_rds_public",
+          "cumulative_memory": 60134509728630.62,
+          "cpu_time_millis": "137871"
+      }
+  ],
+  "hasNextPage": true
+}

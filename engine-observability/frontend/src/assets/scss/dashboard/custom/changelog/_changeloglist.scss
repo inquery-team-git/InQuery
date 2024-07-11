@@ -1,0 +1,19 @@
+.changelogList {
+  min-width: 630px;
+  flex: 1;
+  position: relative;
+
+  .listContainer {
+    overflow: scroll;
+    max-height: 90vh;
+    background: #fff;
+    border-right: 1px solid #e6e6e6;
+    width: 75%;
+    box-sizing: border-box;
+  }
+
+  .changelogItem {
+    padding: 30px;
+    border-bottom: 1px solid #e6e6e6;
+  }
+}

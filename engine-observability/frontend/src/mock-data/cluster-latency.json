@@ -1,0 +1,29 @@
+[
+  {
+    "chart": "line",
+    "id": "cluster_latency_over_time",
+    "title": "Cluster Latency Over Time",
+    "label": "Cluster Latency Over Time",
+    "color": "orange",
+    "max": 65064,
+    "min": 140,
+    "metrics": [
+      140, 278, 65064, 45692, 44895, 45467, 48587, 46228, 45991, 44669
+    ],
+    "xAxis": [
+      1717973176798, 1717976296562, 1718042880374, 1718043084724, 1718043267612,
+      1718043450626, 1718043586242, 1718043727223, 1718043864949, 1718044003365
+    ],
+    "xAxisLabel": "Time",
+    "xAxisType": "timestamp"
+  },
+  {
+    "id": "query_latency_metrics",
+    "title": "Query Latency Metrics (35 queries)",
+    "chart": "bar",
+    "scaleType": "band",
+    "color": "orange",
+    "xAxis": ["Mean", "Median", "P 90", "P 95", "P 99", "Max", "Min"],
+    "yAxis": [42941.1429, 45454, 47951, 65064, 331080, 331080, 103]
+  }
+]

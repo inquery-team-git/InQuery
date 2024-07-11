@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inquery-predictor
+  labels:
+    app: inquery-predictor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inquery-predictor
+  template:
+    metadata:
+      labels:
+        app: inquery-predictor
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: inquery-predictor
+        image: "{{ .Values.inqueryPredictor.image.repository }}"
+        imagePullPolicy: {{ .Values.inqueryPredictor.image.pullPolicy }}
+        ports:
+        - containerPort: 5001
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5001
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: inquery-predictor
+  labels:
+    app: inquery-predictor
+spec:
+  selector:
+    app: inquery-predictor
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001

@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  redis:
+    image: 'redis:7.2.5'
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16.3-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - ${DATABASE_PORT}:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+
+  inquery-app-backend:
+    build:
+      context: .
+      args:
+        - NPM_TOKEN=NPM_TOKEN
+    depends_on:
+      - postgres
+      - adminer
+      - redis
+    ports:
+      - 3001:3001
+
+volumes:
+  redis_data:
+    driver: local
+  postgres-data:

@@ -1,0 +1,178 @@
+.adminChangelogCreatePreview {
+  background: #fff;
+  border-right: 1px solid #e6e6e6;
+  overflow: auto;
+  width: 50%;
+  min-width: 400px;
+  max-width: 800px;
+  box-sizing: border-box;
+  .changelogEntry {
+    padding: 30px;
+    max-height: 83vh;
+    overflow: scroll;
+  }
+  .changelogEntry::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.changelogEntry {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.adminChangelogCreateComposer {
+  background: #fff;
+  border-right: 1px solid #e6e6e6;
+  overflow-y: auto;
+  width: 50%;
+  min-width: 400px;
+  max-width: 840px;
+  box-sizing: border-box;
+
+  .composer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+
+    .topContainer {
+      flex: 1;
+      display: flex;
+      height: 83vh;
+      min-height: 250px;
+      flex-direction: column;
+      padding: 30px;
+      border-bottom: 1px solid #e6e6e6;
+    }
+
+    .titleBoxRoot {
+      margin-bottom: 10px;
+    }
+
+    .titleBoxInput {
+      float: left;
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 36px;
+      letter-spacing: -0.264px;
+      color: #000000;
+      padding: 10px;
+      height: 30px;
+    }
+
+    .bottomContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+      min-height: 80px;
+      .MuiFormControl-root {
+        display: none;
+      }
+      .draftStatus {
+        display: flex;
+        align-self: center;
+        font-size: 15px;
+        line-height: 22px;
+      }
+      .draftStatus.empty {
+        width: 0;
+        padding: 0;
+      }
+      .draftStatus.saving {
+      }
+      .draftStatus.saved {
+      }
+      .composerButtons {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        position: relative;
+        .publishButton {
+          border-radius: 5px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          margin: 0 2px 0 0;
+          height: 41px;
+        }
+        .scheduleButton {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          padding: 7px 10px;
+          height: 41px;
+        }
+        .scheduledFor,
+        .publishedAt {
+          font-size: 15px;
+          line-height: 22px;
+          margin: 0 10px 0 0;
+        }
+        .unschedule,
+        .unpublish {
+          font-size: 15px;
+          line-height: 22px;
+          text-decoration: underline;
+          color: var(--gray-110);
+          cursor: pointer;
+          transition: all 0.1s ease-in-out;
+        }
+        .scheduleIcon {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  .button {
+    background: #ffffff;
+    color: #525df9;
+    font-weight: 500;
+    border-radius: 40px;
+    min-width: 100px;
+    font-size: 14px;
+    height: 40px;
+    line-height: 30px;
+    margin-left: 20px;
+    border: 1px solid #525df9;
+
+    &:hover {
+      border: 1px solid #525df9;
+      background: transparent;
+    }
+  }
+
+  .published-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+
+    .publishedAt {
+      font-size: 15px;
+      line-height: 22px;
+      margin: 0 10px 0 0;
+    }
+
+    .unpublish {
+      font-size: 15px;
+      line-height: 22px;
+      text-decoration: underline;
+      color: #525df9;
+      cursor: pointer;
+      transition: all 0.1s ease-in-out;
+    }
+  }
+}

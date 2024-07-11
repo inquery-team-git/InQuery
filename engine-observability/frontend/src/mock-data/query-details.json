@@ -1,0 +1,693 @@
+{
+  "query_id": "20240424_144734_00212_nzgvv",
+  "query": "SELECT s_acctbal, s_name, n_name, p_partkey, p_mfgr, s_address, s_phone, s_comment FROM part, supplier, partsupp, nation, region WHERE p_partkey = ps_partkey AND s_suppkey = ps_suppkey AND p_size = 15 AND p_type LIKE '%BRASS' AND s_nationkey = n_nationkey AND n_regionkey = r_regionkey AND r_name = 'EUROPE' AND ps_supplycost = (SELECT MIN(ps_supplycost) FROM partsupp, supplier, nation, region WHERE p_partkey = ps_partkey AND s_suppkey = ps_suppkey AND s_nationkey = n_nationkey AND n_regionkey = r_regionkey AND r_name = 'EUROPE') ORDER BY s_acctbal DESC, n_name, s_name, p_partkey LIMIT 100",
+  "query_state": "FINISHED",
+  "plan": "Trino version: 432\nQueued: 1.17ms, Analysis: 816.67ms, Planning: 1.75s, Execution: 5.20s\nFragment 0 [SINGLE]\n    CPU: 5.04ms, Scheduled: 6.97ms, Blocked 8.81s (Input: 5.80s, Output: 0.00ns), Input: 435 rows (78.98kB); per task: avg.: 435.00 std.dev.: 0.00, Output: 100 rows (18.26kB)\n    Output layout: [s_acctbal, s_name, n_name, p_partkey, p_mfgr, s_address, s_phone, s_comment]\n    Output partitioning: SINGLE []\n    Output[columnNames = [s_acctbal, s_name, n_name, p_partkey, p_mfgr, s_address, s_phone, s_comment]]\n    │   Layout: [s_acctbal:decimal(12,2), s_name:varchar, n_name:varchar, p_partkey:integer, p_mfgr:varchar, s_address:varchar, s_phone:varchar, s_comment:varchar]\n    │   CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 0.00ns (0.00%), Output: 100 rows (18.26kB)\n    │   Input avg.: 100.00 rows, Input std.dev.: 0.00%\n    └─ TopN[count = 100, orderBy = [s_acctbal DESC NULLS LAST, n_name ASC NULLS LAST, s_name ASC NULLS LAST, p_partkey ASC NULLS LAST]]\n       │   Layout: [p_partkey:integer, s_comment:varchar, s_phone:varchar, s_name:varchar, s_address:varchar, s_acctbal:decimal(12,2), p_mfgr:varchar, n_name:varchar]\n       │   CPU: 4.00ms (0.10%), Scheduled: 4.00ms (0.02%), Blocked: 0.00ns (0.00%), Output: 100 rows (18.26kB)\n       │   Input avg.: 435.00 rows, Input std.dev.: 0.00%\n       └─ LocalExchange[partitioning = SINGLE]\n          │   Layout: [p_partkey:integer, s_comment:varchar, s_phone:varchar, s_name:varchar, s_address:varchar, s_acctbal:decimal(12,2), p_mfgr:varchar, n_name:varchar]\n          │   CPU: 0.00ns (0.00%), Scheduled: 1.00ms (0.00%), Blocked: 2.96s (3.01%), Output: 435 rows (78.98kB)\n          │   Input avg.: 217.50 rows, Input std.dev.: 13.10%\n          └─ RemoteSource[sourceFragmentIds = [1]]\n                 Layout: [p_partkey:integer, s_comment:varchar, s_phone:varchar, s_name:varchar, s_address:varchar, s_acctbal:decimal(12,2), p_mfgr:varchar, n_name:varchar]\n                 CPU: 0.00ns (0.00%), Scheduled: 1.00ms (0.00%), Blocked: 5.80s (5.89%), Output: 435 rows (78.98kB)\n                 Input avg.: 217.50 rows, Input std.dev.: 13.10%\n\nFragment 1 [HASH]\n    CPU: 393.95ms, Scheduled: 1.94s, Blocked 47.43s (Input: 23.01s, Output: 0.00ns), Input: 118067 rows (1.69MB); per task: avg.: 39355.67 std.dev.: 60.15, Output: 435 rows (78.98kB)\n    Output layout: [p_partkey, s_comment, s_phone, s_name, s_address, s_acctbal, p_mfgr, n_name]\n    Output partitioning: SINGLE []\n    TopNPartial[count = 100, orderBy = [s_acctbal DESC NULLS LAST, n_name ASC NULLS LAST, s_name ASC NULLS LAST, p_partkey ASC NULLS LAST]]\n    │   Layout: [p_partkey:integer, s_comment:varchar, s_phone:varchar, s_name:varchar, s_address:varchar, s_acctbal:decimal(12,2), p_mfgr:varchar, n_name:varchar]\n    │   CPU: 17.00ms (0.41%), Scheduled: 50.00ms (0.22%), Blocked: 0.00ns (0.00%), Output: 435 rows (78.98kB)\n    │   Input avg.: 76.67 rows, Input std.dev.: 40.15%\n    └─ FilterProject[filterPredicate = (\"ps_supplycost\" = COALESCE(\"min\", \"min_37\"))]\n       │   Layout: [p_partkey:integer, s_comment:varchar, s_phone:varchar, s_name:varchar, s_address:varchar, s_acctbal:decimal(12,2), p_mfgr:varchar, n_name:varchar]\n       │   CPU: 5.00ms (0.12%), Scheduled: 6.00ms (0.03%), Blocked: 0.00ns (0.00%), Output: 460 rows (83.74kB)\n       │   Input avg.: 107.00 rows, Input std.dev.: 41.08%\n       └─ CrossJoin[]\n          │   Layout: [p_partkey:integer, p_mfgr:varchar, s_name:varchar, s_address:varchar, s_phone:varchar, s_acctbal:decimal(12,2), s_comment:varchar, ps_supplycost:decimal(12,2), n_name:varchar, min:decimal(12,2), min_37:decimal(12,2)]\n          │   CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 5.62s (5.70%), Output: 642 rows (129.03kB)\n          │   Distribution: REPLICATED\n          ├─ LeftJoin[criteria = (\"p_partkey\" = \"ps_partkey_8\"), distribution = PARTITIONED]\n          │  │   Layout: [p_partkey:integer, p_mfgr:varchar, ps_supplycost:decimal(12,2), s_name:varchar, s_address:varchar, s_phone:varchar, s_acctbal:decimal(12,2), s_comment:varchar, n_name:varchar, min:decimal(12,2)]\n          │  │   CPU: 114.00ms (2.74%), Scheduled: 402.00ms (1.73%), Blocked: 8.82s (8.96%), Output: 642 rows (128.87kB)\n          │  │   Left (probe) Input avg.: 107.00 rows, Input std.dev.: 41.08%\n          │  │   Right (build) Input avg.: 19570.33 rows, Input std.dev.: 0.42%\n          │  │   Distribution: PARTITIONED\n          │  ├─ RemoteSource[sourceFragmentIds = [2]]\n          │  │      Layout: [p_partkey:integer, p_mfgr:varchar, ps_supplycost:decimal(12,2), s_name:varchar, s_address:varchar, s_phone:varchar, s_acctbal:decimal(12,2), s_comment:varchar, n_name:varchar]\n          │  │      CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 10.42s (10.58%), Output: 642 rows (123.23kB)\n          │  │      Input avg.: 107.00 rows, Input std.dev.: 41.08%\n          │  └─ Aggregate[type = FINAL, keys = [ps_partkey_8]]\n          │     │   Layout: [ps_partkey_8:integer, min:decimal(12,2)]\n          │     │   CPU: 208.00ms (5.00%), Scheduled: 1.15s (4.93%), Blocked: 0.00ns (0.00%), Output: 117422 rows (1.57MB)\n          │     │   Input avg.: 19570.33 rows, Input std.dev.: 0.42%\n          │     │   min := min(\"min_38\")\n          │     └─ LocalExchange[partitioning = HASH, arguments = [\"ps_partkey_8\"]]\n          │        │   Layout: [ps_partkey_8:integer, min_38:decimal(12,2)]\n          │        │   CPU: 40.00ms (0.96%), Scheduled: 318.00ms (1.37%), Blocked: 12.96s (13.16%), Output: 117422 rows (1.57MB)\n          │        │   Input avg.: 19570.33 rows, Input std.dev.: 33.35%\n          │        └─ RemoteSource[sourceFragmentIds = [7]]\n          │               Layout: [ps_partkey_8:integer, min_38:decimal(12,2)]\n          │               CPU: 1.00ms (0.02%), Scheduled: 1.00ms (0.00%), Blocked: 12.42s (12.61%), Output: 117422 rows (1.57MB)\n          │               Input avg.: 19570.33 rows, Input std.dev.: 33.35%\n          └─ LocalExchange[partitioning = SINGLE]\n             │   Layout: [min_37:decimal(12,2)]\n             │   CPU: 0.00ns (0.00%), Scheduled: 4.00ms (0.02%), Blocked: 142.00ms (0.14%), Output: 3 rows (27B)\n             │   Input avg.: 0.50 rows, Input std.dev.: 100.00%\n             └─ RemoteSource[sourceFragmentIds = [11]]\n                    Layout: [min_37:decimal(12,2)]\n                    CPU: 0.00ns (0.00%), Scheduled: 1.00ms (0.00%), Blocked: 173.00ms (0.18%), Output: 3 rows (27B)\n                    Input avg.: 0.50 rows, Input std.dev.: 100.00%\n\nFragment 2 [SOURCE]\n    CPU: 1.46s, Scheduled: 7.31s, Blocked 24.58s (Input: 697.64ms, Output: 0.00ns), Input: 2630078 rows (51.68MB); per task: avg.: 876692.67 std.dev.: 4242.09, Output: 642 rows (141.53kB)\n    Output layout: [p_partkey, p_mfgr, ps_supplycost, s_name, s_address, s_phone, s_acctbal, s_comment, n_name]\n    Output partitioning: HASH [p_partkey]\n    InnerJoin[criteria = (\"n_regionkey\" = \"r_regionkey\"), distribution = REPLICATED]\n    │   Layout: [p_partkey:integer, p_mfgr:varchar, ps_supplycost:decimal(12,2), s_name:varchar, s_address:varchar, s_phone:varchar, s_acctbal:decimal(12,2), s_comment:varchar, n_name:varchar]\n    │   CPU: 29.00ms (0.70%), Scheduled: 163.00ms (0.70%), Blocked: 4.59s (4.66%), Output: 642 rows (141.53kB)\n    │   Left (probe) Input avg.: 498.00 rows, Input std.dev.: 13.14%\n    │   Right (build) Input avg.: 1.00 rows, Input std.dev.: 0.00%\n    │   Distribution: REPLICATED\n    │   dynamicFilterAssignments = {r_regionkey -> #df_2112}\n    ├─ InnerJoin[criteria = (\"s_nationkey\" = \"n_nationkey\"), distribution = REPLICATED]\n    │  │   Layout: [p_partkey:integer, p_mfgr:varchar, ps_supplycost:decimal(12,2), s_name:varchar, s_address:varchar, s_phone:varchar, s_acctbal:decimal(12,2), s_comment:varchar, n_name:varchar, n_regionkey:integer]\n    │  │   CPU: 50.00ms (1.20%), Scheduled: 250.00ms (1.08%), Blocked: 4.53s (4.60%), Output: 2988 rows (554.39kB)\n    │  │   Left (probe) Input avg.: 498.00 rows, Input std.dev.: 13.14%\n    │  │   Right (build) Input avg.: 25.00 rows, Input std.dev.: 0.00%\n    │  │   Distribution: REPLICATED\n    │  │   dynamicFilterAssignments = {n_nationkey -> #df_2113}\n    │  ├─ InnerJoin[criteria = (\"ps_suppkey\" = \"s_suppkey\"), distribution = REPLICATED]\n    │  │  │   Layout: [p_partkey:integer, p_mfgr:varchar, ps_supplycost:decimal(12,2), s_name:varchar, s_address:varchar, s_nationkey:integer, s_phone:varchar, s_acctbal:decimal(12,2), s_comment:varchar]\n    │  │  │   CPU: 114.00ms (2.74%), Scheduled: 760.00ms (3.27%), Blocked: 4.08s (4.14%), Output: 2988 rows (519.26kB)\n    │  │  │   Left (probe) Input avg.: 498.00 rows, Input std.dev.: 13.14%\n    │  │  │   Right (build) Input avg.: 10000.00 rows, Input std.dev.: 0.00%\n    │  │  │   Distribution: REPLICATED\n    │  │  │   dynamicFilterAssignments = {s_suppkey -> #df_2114}\n    │  │  ├─ InnerJoin[criteria = (\"p_partkey\" = \"ps_partkey\"), distribution = REPLICATED]\n    │  │  │  │   Layout: [p_partkey:integer, p_mfgr:varchar, ps_suppkey:integer, ps_supplycost:decimal(12,2)]\n    │  │  │  │   CPU: 1.08s (26.05%), Scheduled: 4.80s (20.65%), Blocked: 10.09s (10.24%), Output: 2988 rows (81.70kB)\n    │  │  │  │   Left (probe) Input avg.: 124.50 rows, Input std.dev.: 13.14%\n    │  │  │  │   Right (build) Input avg.: 800000.00 rows, Input std.dev.: 0.00%\n    │  │  │  │   Distribution: REPLICATED\n    │  │  │  │   dynamicFilterAssignments = {ps_partkey -> #df_2115}\n    │  │  │  ├─ ScanFilterProject[table = iceberg:new_tpch.part$data@1006573516823033545, filterPredicate = ((\"p_size\" = 15) AND \"$like\"(\"p_type\", \"$literal$\"(from_base64('DgAAAFZBUklBQkxFX1dJRFRIAQAAAAEAAAALAAAAAAsAAAAGAAAAJUJSQVNTAA==')))), dynamicFilters = {\"p_partkey\" = #df_2115}]\n    │  │  │  │      Layout: [p_partkey:integer, p_mfgr:varchar]\n    │  │  │  │      CPU: 146.00ms (3.51%), Scheduled: 1.16s (5.00%), Blocked: 0.00ns (0.00%), Output: 747 rows (17.51kB)\n    │  │  │  │      Input avg.: 33333.33 rows, Input std.dev.: 9.73%\n    │  │  │  │      p_partkey := 1:p_partkey:integer\n    │  │  │  │      p_type := 5:p_type:varchar\n    │  │  │  │      p_mfgr := 3:p_mfgr:varchar\n    │  │  │  │      p_size := 6:p_size:integer\n    │  │  │  │      Input: 200000 rows (3.62MB), Filtered: 99.63%, Physical input: 4.30MB, Physical input time: 491.84ms\n    │  │  │  │      Dynamic filters: \n    │  │  │  │          - df_2115, ALL, collection time=1.98s\n    │  │  │  └─ LocalExchange[partitioning = SINGLE]\n    │  │  │     │   Layout: [ps_partkey:integer, ps_suppkey:integer, ps_supplycost:decimal(12,2)]\n    │  │  │     │   CPU: 7.00ms (0.17%), Scheduled: 17.00ms (0.07%), Blocked: 62.00ms (0.06%), Output: 2400000 rows (43.49MB)\n    │  │  │     │   Input avg.: 400000.00 rows, Input std.dev.: 65.68%\n    │  │  │     └─ RemoteSource[sourceFragmentIds = [3]]\n    │  │  │            Layout: [ps_partkey:integer, ps_suppkey:integer, ps_supplycost:decimal(12,2)]\n    │  │  │            CPU: 22.00ms (0.53%), Scheduled: 124.00ms (0.53%), Blocked: 424.00ms (0.43%), Output: 2400000 rows (43.49MB)\n    │  │  │            Input avg.: 400000.00 rows, Input std.dev.: 65.68%\n    │  │  └─ LocalExchange[partitioning = SINGLE]\n    │  │     │   Layout: [s_suppkey:integer, s_name:varchar, s_address:varchar, s_nationkey:integer, s_phone:varchar, s_acctbal:decimal(12,2), s_comment:varchar]\n    │  │     │   CPU: 0.00ns (0.00%), Scheduled: 26.00ms (0.11%), Blocked: 165.00ms (0.17%), Output: 30000 rows (4.56MB)\n    │  │     │   Input avg.: 5000.00 rows, Input std.dev.: 100.00%\n    │  │     └─ RemoteSource[sourceFragmentIds = [4]]\n    │  │            Layout: [s_suppkey:integer, s_name:varchar, s_address:varchar, s_nationkey:integer, s_phone:varchar, s_acctbal:decimal(12,2), s_comment:varchar]\n    │  │            CPU: 3.00ms (0.07%), Scheduled: 7.00ms (0.03%), Blocked: 103.00ms (0.10%), Output: 30000 rows (4.56MB)\n    │  │            Input avg.: 5000.00 rows, Input std.dev.: 100.00%\n    │  └─ LocalExchange[partitioning = SINGLE]\n    │     │   Layout: [n_nationkey:integer, n_name:varchar, n_regionkey:integer]\n    │     │   CPU: 0.00ns (0.00%), Scheduled: 1.00ms (0.00%), Blocked: 197.00ms (0.20%), Output: 75 rows (1.62kB)\n    │     │   Input avg.: 12.50 rows, Input std.dev.: 100.00%\n    │     └─ RemoteSource[sourceFragmentIds = [5]]\n    │            Layout: [n_nationkey:integer, n_name:varchar, n_regionkey:integer]\n    │            CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 67.00ms (0.07%), Output: 75 rows (1.62kB)\n    │            Input avg.: 12.50 rows, Input std.dev.: 100.00%\n    └─ LocalExchange[partitioning = SINGLE]\n       │   Layout: [r_regionkey:integer]\n       │   CPU: 0.00ns (0.00%), Scheduled: 10.00ms (0.04%), Blocked: 197.00ms (0.20%), Output: 3 rows (15B)\n       │   Input avg.: 0.50 rows, Input std.dev.: 100.00%\n       └─ RemoteSource[sourceFragmentIds = [6]]\n              Layout: [r_regionkey:integer]\n              CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 104.00ms (0.11%), Output: 3 rows (15B)\n              Input avg.: 0.50 rows, Input std.dev.: 100.00%\n\nFragment 3 [SOURCE]\n    CPU: 166.15ms, Scheduled: 2.65s, Blocked 0.00ns (Input: 0.00ns, Output: 0.00ns), Input: 800000 rows (14.50MB); per task: avg.: 266666.67 std.dev.: 43891.17, Output: 800000 rows (14.50MB)\n    Output layout: [ps_partkey, ps_suppkey, ps_supplycost]\n    Output partitioning: BROADCAST []\n    ScanFilter[table = iceberg:new_tpch.partsupp$data@40594833716858070, dynamicFilters = {\"ps_suppkey\" = #df_2114}]\n        Layout: [ps_partkey:integer, ps_suppkey:integer, ps_supplycost:decimal(12,2)]\n        CPU: 165.00ms (3.97%), Scheduled: 2.65s (11.42%), Blocked: 0.00ns (0.00%), Output: 800000 rows (14.50MB)\n        Input avg.: 100000.00 rows, Input std.dev.: 9.39%\n        ps_suppkey := 2:ps_suppkey:integer\n        ps_partkey := 1:ps_partkey:integer\n        ps_supplycost := 4:ps_supplycost:decimal(12,2)\n        Input: 800000 rows (14.50MB), Filtered: 0.00%, Physical input: 9.11MB, Physical input time: 1.74s\n        Dynamic filters: \n            - df_2114, ALL, collection time=1.08s\n\nFragment 4 [SOURCE]\n    CPU: 12.76ms, Scheduled: 122.90ms, Blocked 0.00ns (Input: 0.00ns, Output: 0.00ns), Input: 10000 rows (1.52MB); per task: avg.: 10000.00 std.dev.: 0.00, Output: 10000 rows (1.52MB)\n    Output layout: [s_suppkey, s_name, s_address, s_nationkey, s_phone, s_acctbal, s_comment]\n    Output partitioning: BROADCAST []\n    ScanFilter[table = iceberg:new_tpch.supplier$data@2847729258771803323, dynamicFilters = {\"s_nationkey\" = #df_2113}]\n        Layout: [s_suppkey:integer, s_name:varchar, s_address:varchar, s_nationkey:integer, s_phone:varchar, s_acctbal:decimal(12,2), s_comment:varchar]\n        CPU: 13.00ms (0.31%), Scheduled: 123.00ms (0.53%), Blocked: 0.00ns (0.00%), Output: 10000 rows (1.52MB)\n        Input avg.: 10000.00 rows, Input std.dev.: 0.00%\n        s_comment := 7:s_comment:varchar\n        s_phone := 5:s_phone:varchar\n        s_nationkey := 4:s_nationkey:integer\n        s_name := 2:s_name:varchar\n        s_address := 3:s_address:varchar\n        s_acctbal := 6:s_acctbal:decimal(12,2)\n        s_suppkey := 1:s_suppkey:integer\n        Input: 10000 rows (1.52MB), Filtered: 0.00%, Physical input: 516.10kB, Physical input time: 87.84ms\n        Dynamic filters: \n            - df_2113, [ SortedRangeSet[type=integer, ranges=25, {[0], ..., [24]}] ], collection time=920.00ms\n\nFragment 5 [SOURCE]\n    CPU: 6.32ms, Scheduled: 46.82ms, Blocked 0.00ns (Input: 0.00ns, Output: 0.00ns), Input: 25 rows (552B); per task: avg.: 25.00 std.dev.: 0.00, Output: 25 rows (552B)\n    Output layout: [n_nationkey, n_name, n_regionkey]\n    Output partitioning: BROADCAST []\n    ScanFilter[table = iceberg:new_tpch.nation$data@5621081038040694221, dynamicFilters = {\"n_regionkey\" = #df_2112}]\n        Layout: [n_nationkey:integer, n_name:varchar, n_regionkey:integer]\n        CPU: 6.00ms (0.14%), Scheduled: 47.00ms (0.20%), Blocked: 0.00ns (0.00%), Output: 25 rows (552B)\n        Input avg.: 25.00 rows, Input std.dev.: 0.00%\n        n_nationkey := 1:n_nationkey:integer\n        n_regionkey := 3:n_regionkey:integer\n        n_name := 2:n_name:varchar\n        Input: 25 rows (552B), Filtered: 0.00%, Physical input: 2.40kB, Physical input time: 45.44ms\n        Dynamic filters: \n            - df_2112, [ SortedRangeSet[type=integer, ranges=1, {[3]}] ], collection time=920.22ms\n\nFragment 6 [SOURCE]\n    CPU: 7.52ms, Scheduled: 52.25ms, Blocked 0.00ns (Input: 0.00ns, Output: 0.00ns), Input: 5 rows (69B); per task: avg.: 5.00 std.dev.: 0.00, Output: 1 row (5B)\n    Output layout: [r_regionkey]\n    Output partitioning: BROADCAST []\n    ScanFilterProject[table = iceberg:new_tpch.region$data@4430059571085663722, filterPredicate = (\"r_name\" = VARCHAR 'EUROPE')]\n        Layout: [r_regionkey:integer]\n        CPU: 7.00ms (0.17%), Scheduled: 52.00ms (0.22%), Blocked: 0.00ns (0.00%), Output: 1 row (5B)\n        Input avg.: 5.00 rows, Input std.dev.: 0.00%\n        r_regionkey := 1:r_regionkey:integer\n        r_name := 2:r_name:varchar\n        Input: 5 rows (69B), Filtered: 80.00%, Physical input: 1.36kB, Physical input time: 49.47ms\n\nFragment 7 [SOURCE]\n    CPU: 2.11s, Scheduled: 10.80s, Blocked 14.55s (Input: 375.26ms, Output: 0.00ns), Input: 830078 rows (14.78MB); per task: avg.: 276692.67 std.dev.: 44270.98, Output: 117422 rows (1.57MB)\n    Output layout: [ps_partkey_8, min_38]\n    Output partitioning: HASH [ps_partkey_8]\n    Aggregate[type = PARTIAL, keys = [ps_partkey_8]]\n    │   Layout: [ps_partkey_8:integer, min_38:decimal(12,2)]\n    │   CPU: 250.00ms (6.01%), Scheduled: 1.18s (5.08%), Blocked: 0.00ns (0.00%), Output: 117422 rows (1.57MB)\n    │   Input avg.: 19870.00 rows, Input std.dev.: 9.39%\n    │   min_38 := min(\"ps_supplycost_11\") (mask = non_null)\n    └─ Project[]\n       │   Layout: [ps_supplycost_11:decimal(12,2), non_null:boolean, ps_partkey_8:integer]\n       │   CPU: 23.00ms (0.55%), Scheduled: 243.00ms (1.05%), Blocked: 0.00ns (0.00%), Output: 158960 rows (3.32MB)\n       │   Input avg.: 19870.00 rows, Input std.dev.: 9.39%\n       │   non_null := true\n       └─ InnerJoin[criteria = (\"n_regionkey_26\" = \"r_regionkey_30\"), distribution = REPLICATED]\n          │   Layout: [ps_partkey_8:integer, ps_supplycost_11:decimal(12,2)]\n          │   CPU: 346.00ms (8.32%), Scheduled: 1.82s (7.84%), Blocked: 3.95s (4.01%), Output: 158960 rows (3.34MB)\n          │   Left (probe) Input avg.: 100000.00 rows, Input std.dev.: 9.39%\n          │   Right (build) Input avg.: 1.00 rows, Input std.dev.: 0.00%\n          │   Distribution: REPLICATED\n          │   dynamicFilterAssignments = {r_regionkey_30 -> #df_2133}\n          ├─ InnerJoin[criteria = (\"s_nationkey_18\" = \"n_nationkey_24\"), distribution = REPLICATED]\n          │  │   Layout: [ps_partkey_8:integer, ps_supplycost_11:decimal(12,2), n_regionkey_26:integer]\n          │  │   CPU: 606.00ms (14.56%), Scheduled: 2.94s (12.64%), Blocked: 4.14s (4.21%), Output: 800000 rows (14.50MB)\n          │  │   Left (probe) Input avg.: 100000.00 rows, Input std.dev.: 9.39%\n          │  │   Right (build) Input avg.: 25.00 rows, Input std.dev.: 0.00%\n          │  │   Distribution: REPLICATED\n          │  │   dynamicFilterAssignments = {n_nationkey_24 -> #df_2134}\n          │  ├─ InnerJoin[criteria = (\"ps_suppkey_9\" = \"s_suppkey_15\"), distribution = REPLICATED]\n          │  │  │   Layout: [ps_partkey_8:integer, ps_supplycost_11:decimal(12,2), s_nationkey_18:integer]\n          │  │  │   CPU: 764.00ms (18.36%), Scheduled: 3.61s (15.55%), Blocked: 5.53s (5.61%), Output: 800000 rows (14.50MB)\n          │  │  │   Left (probe) Input avg.: 100000.00 rows, Input std.dev.: 9.39%\n          │  │  │   Right (build) Input avg.: 10000.00 rows, Input std.dev.: 0.00%\n          │  │  │   Distribution: REPLICATED\n          │  │  │   dynamicFilterAssignments = {s_suppkey_15 -> #df_2135}\n          │  │  ├─ ScanFilter[table = iceberg:new_tpch.partsupp$data@40594833716858070, dynamicFilters = {\"ps_suppkey_9\" = #df_2135}]\n          │  │  │      Layout: [ps_partkey_8:integer, ps_suppkey_9:integer, ps_supplycost_11:decimal(12,2)]\n          │  │  │      CPU: 108.00ms (2.60%), Scheduled: 906.00ms (3.90%), Blocked: 0.00ns (0.00%), Output: 800000 rows (14.50MB)\n          │  │  │      Input avg.: 100000.00 rows, Input std.dev.: 9.39%\n          │  │  │      ps_supplycost_11 := 4:ps_supplycost:decimal(12,2)\n          │  │  │      ps_suppkey_9 := 2:ps_suppkey:integer\n          │  │  │      ps_partkey_8 := 1:ps_partkey:integer\n          │  │  │      Input: 800000 rows (14.50MB), Filtered: 0.00%, Physical input: 9.11MB, Physical input time: 685.25ms\n          │  │  │      Dynamic filters: \n          │  │  │          - df_2135, ALL, collection time=476.13ms\n          │  │  └─ LocalExchange[partitioning = SINGLE]\n          │  │     │   Layout: [s_suppkey_15:integer, s_nationkey_18:integer]\n          │  │     │   CPU: 0.00ns (0.00%), Scheduled: 6.00ms (0.03%), Blocked: 31.00ms (0.03%), Output: 30000 rows (292.97kB)\n          │  │     │   Input avg.: 5000.00 rows, Input std.dev.: 99.99%\n          │  │     └─ RemoteSource[sourceFragmentIds = [8]]\n          │  │            Layout: [s_suppkey_15:integer, s_nationkey_18:integer]\n          │  │            CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 78.00ms (0.08%), Output: 30000 rows (292.97kB)\n          │  │            Input avg.: 5000.00 rows, Input std.dev.: 99.99%\n          │  └─ LocalExchange[partitioning = SINGLE]\n          │     │   Layout: [n_nationkey_24:integer, n_regionkey_26:integer]\n          │     │   CPU: 0.00ns (0.00%), Scheduled: 30.00ms (0.13%), Blocked: 150.00ms (0.15%), Output: 75 rows (750B)\n          │     │   Input avg.: 12.50 rows, Input std.dev.: 100.00%\n          │     └─ RemoteSource[sourceFragmentIds = [9]]\n          │            Layout: [n_nationkey_24:integer, n_regionkey_26:integer]\n          │            CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 182.00ms (0.18%), Output: 75 rows (750B)\n          │            Input avg.: 12.50 rows, Input std.dev.: 100.00%\n          └─ LocalExchange[partitioning = SINGLE]\n             │   Layout: [r_regionkey_30:integer]\n             │   CPU: 0.00ns (0.00%), Scheduled: 66.00ms (0.28%), Blocked: 390.00ms (0.40%), Output: 3 rows (15B)\n             │   Input avg.: 0.50 rows, Input std.dev.: 100.00%\n             └─ RemoteSource[sourceFragmentIds = [10]]\n                    Layout: [r_regionkey_30:integer]\n                    CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 116.00ms (0.12%), Output: 3 rows (15B)\n                    Input avg.: 0.50 rows, Input std.dev.: 100.00%\n\nFragment 8 [SOURCE]\n    CPU: 12.01ms, Scheduled: 130.84ms, Blocked 0.00ns (Input: 0.00ns, Output: 0.00ns), Input: 10000 rows (97.66kB); per task: avg.: 10000.00 std.dev.: 0.00, Output: 10000 rows (97.66kB)\n    Output layout: [s_suppkey_15, s_nationkey_18]\n    Output partitioning: BROADCAST []\n    ScanFilter[table = iceberg:new_tpch.supplier$data@2847729258771803323, dynamicFilters = {\"s_nationkey_18\" = #df_2134}]\n        Layout: [s_suppkey_15:integer, s_nationkey_18:integer]\n        CPU: 12.00ms (0.29%), Scheduled: 131.00ms (0.56%), Blocked: 0.00ns (0.00%), Output: 10000 rows (97.66kB)\n        Input avg.: 10000.00 rows, Input std.dev.: 0.00%\n        s_suppkey_15 := 1:s_suppkey:integer\n        s_nationkey_18 := 4:s_nationkey:integer\n        Input: 10000 rows (97.66kB), Filtered: 0.00%, Physical input: 516.10kB, Physical input time: 118.82ms\n        Dynamic filters: \n            - df_2134, [ SortedRangeSet[type=integer, ranges=25, {[0], ..., [24]}] ], collection time=489.08ms\n\nFragment 9 [SOURCE]\n    CPU: 8.10ms, Scheduled: 75.97ms, Blocked 0.00ns (Input: 0.00ns, Output: 0.00ns), Input: 25 rows (250B); per task: avg.: 25.00 std.dev.: 0.00, Output: 25 rows (250B)\n    Output layout: [n_nationkey_24, n_regionkey_26]\n    Output partitioning: BROADCAST []\n    ScanFilter[table = iceberg:new_tpch.nation$data@5621081038040694221, dynamicFilters = {\"n_regionkey_26\" = #df_2133}]\n        Layout: [n_nationkey_24:integer, n_regionkey_26:integer]\n        CPU: 8.00ms (0.19%), Scheduled: 76.00ms (0.33%), Blocked: 0.00ns (0.00%), Output: 25 rows (250B)\n        Input avg.: 25.00 rows, Input std.dev.: 0.00%\n        n_nationkey_24 := 1:n_nationkey:integer\n        n_regionkey_26 := 3:n_regionkey:integer\n        Input: 25 rows (250B), Filtered: 0.00%, Physical input: 2.40kB, Physical input time: 33.53ms\n        Dynamic filters: \n            - df_2133, [ SortedRangeSet[type=integer, ranges=1, {[3]}] ], collection time=476.16ms\n\nFragment 10 [SOURCE]\n    CPU: 9.10ms, Scheduled: 98.48ms, Blocked 0.00ns (Input: 0.00ns, Output: 0.00ns), Input: 5 rows (69B); per task: avg.: 5.00 std.dev.: 0.00, Output: 1 row (5B)\n    Output layout: [r_regionkey_30]\n    Output partitioning: BROADCAST []\n    ScanFilterProject[table = iceberg:new_tpch.region$data@4430059571085663722, filterPredicate = (\"r_name_31\" = VARCHAR 'EUROPE')]\n        Layout: [r_regionkey_30:integer]\n        CPU: 9.00ms (0.22%), Scheduled: 98.00ms (0.42%), Blocked: 0.00ns (0.00%), Output: 1 row (5B)\n        Input avg.: 5.00 rows, Input std.dev.: 0.00%\n        r_regionkey_30 := 1:r_regionkey:integer\n        r_name_31 := 2:r_name:varchar\n        Input: 5 rows (69B), Filtered: 80.00%, Physical input: 1.36kB, Physical input time: 68.37ms\n\nFragment 11 [SINGLE]\n    CPU: 504.38us, Scheduled: 507.19us, Blocked 0.00ns (Input: 0.00ns, Output: 0.00ns), Input: 1 row (11B); per task: avg.: 1.00 std.dev.: 0.00, Output: 1 row (9B)\n    Output layout: [min_37]\n    Output partitioning: BROADCAST []\n    Aggregate[]\n    │   Layout: [min_37:decimal(12,2)]\n    │   CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 0.00ns (0.00%), Output: 1 row (9B)\n    │   Input avg.: 1.00 rows, Input std.dev.: 0.00%\n    │   min_37 := min(\"null\") (mask = null_35)\n    └─ Values[]\n           Layout: [null:decimal(12,2), null_35:boolean]\n           CPU: 0.00ns (0.00%), Scheduled: 0.00ns (0.00%), Blocked: 0.00ns (0.00%), Output: 1 row (11B)\n           Input avg.: 1.00 rows, Input std.dev.: 0.00%\n           (CAST(null AS decimal(12, 2)), CAST(null AS boolean))\n\n",
+  "overview": [
+    {
+      "title": "User",
+      "total": "Arturas"
+    },
+    {
+      "title": "Query State",
+      "total": "FINISHED"
+    },
+    {
+      "title": "Catalog",
+      "total": "catalog"
+    },
+    {
+      "title": "CPU Time",
+      "total": "4188ms"
+    },
+    {
+      "title": "Active",
+      "total": "22%"
+    },
+    {
+      "title": "Elapsed Time",
+      "total": "10.14s"
+    },
+    {
+      "title": "Peak Memory",
+      "total": "70.33 MB"
+    },
+    {
+      "title": "Bytes Read",
+      "total": "64.81 MB"
+    },
+    {
+      "title": "Rows Read",
+      "total": "4280216"
+    },
+    {
+      "title": "Bytes Output",
+      "total": "18696 Bytes"
+    },
+    {
+      "title": "Rows Output",
+      "total": "100"
+    }
+  ],
+  "execution": [
+    {
+      "text": "Resource Group",
+      "value": "global"
+    },
+    {
+      "text": "Submission Time",
+      "value": "2024-05-19 1:47am"
+    },
+    {
+      "text": "Completion Time",
+      "value": "2024-05-19 1:47am"
+    },
+    {
+      "text": "Elapsed Time",
+      "value": "420.42ms"
+    },
+    {
+      "text": "Queued Time",
+      "value": "1ms"
+    },
+    {
+      "text": "Analysis Time",
+      "value": "817ms"
+    },
+    {
+      "text": "Planning Time",
+      "value": "1752ms"
+    },
+    {
+      "text": "Execution Time",
+      "value": "5202ms"
+    }
+  ],
+  "stage_info": {
+    "nodes": [
+      {
+        "id": "0",
+        "type": "customNode",
+        "data": {
+          "nodeType": "input",
+          "label": "20240424_144734_00212_nzgvv.0",
+          "stageId": "20240424_144734_00212_nzgvv.0",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "5.04ms",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "8.81s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 3,
+            "rawInputDataSize": "78831B",
+            "rawInputPositions": 435
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 0,
+          "x": 0
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "1",
+        "type": "customNode",
+        "data": {
+          "nodeType": "input-output",
+          "label": "20240424_144734_00212_nzgvv.1",
+          "stageId": "20240424_144734_00212_nzgvv.1",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "393.95ms",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "47.43s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 27,
+            "rawInputDataSize": "1537331B",
+            "rawInputPositions": 118067
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 400,
+          "x": 0
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "2",
+        "type": "customNode",
+        "data": {
+          "nodeType": "input-output",
+          "label": "20240424_144734_00212_nzgvv.2",
+          "stageId": "20240424_144734_00212_nzgvv.2",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "1.46s",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "24.58s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 42,
+            "rawInputDataSize": "47540571B",
+            "rawInputPositions": 2630078
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 800,
+          "x": -800
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "3",
+        "type": "customNode",
+        "data": {
+          "nodeType": "output",
+          "label": "20240424_144734_00212_nzgvv.3",
+          "stageId": "20240424_144734_00212_nzgvv.3",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "166.15ms",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "0.00s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 8,
+            "rawInputDataSize": "9556021B",
+            "rawInputPositions": 800000
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 1200,
+          "x": -1400
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "4",
+        "type": "customNode",
+        "data": {
+          "nodeType": "output",
+          "label": "20240424_144734_00212_nzgvv.4",
+          "stageId": "20240424_144734_00212_nzgvv.4",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "12.76ms",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "0.00s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 1,
+            "rawInputDataSize": "528485B",
+            "rawInputPositions": 10000
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 1200,
+          "x": -1000
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "5",
+        "type": "customNode",
+        "data": {
+          "nodeType": "output",
+          "label": "20240424_144734_00212_nzgvv.5",
+          "stageId": "20240424_144734_00212_nzgvv.5",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "6.32ms",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "0.00s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 1,
+            "rawInputDataSize": "2458B",
+            "rawInputPositions": 25
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 1200,
+          "x": -600
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "6",
+        "type": "customNode",
+        "data": {
+          "nodeType": "output",
+          "label": "20240424_144734_00212_nzgvv.6",
+          "stageId": "20240424_144734_00212_nzgvv.6",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "7.52ms",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "0.00s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 1,
+            "rawInputDataSize": "1390B",
+            "rawInputPositions": 5
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 1200,
+          "x": -200
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "7",
+        "type": "customNode",
+        "data": {
+          "nodeType": "input-output",
+          "label": "20240424_144734_00212_nzgvv.7",
+          "stageId": "20240424_144734_00212_nzgvv.7",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "2.11s",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "14.55s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 35,
+            "rawInputDataSize": "9799759B",
+            "rawInputPositions": 830078
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 800,
+          "x": 800
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "8",
+        "type": "customNode",
+        "data": {
+          "nodeType": "output",
+          "label": "20240424_144734_00212_nzgvv.8",
+          "stageId": "20240424_144734_00212_nzgvv.8",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "12.01ms",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "0.00s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 1,
+            "rawInputDataSize": "528485B",
+            "rawInputPositions": 10000
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 1200,
+          "x": 400
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "9",
+        "type": "customNode",
+        "data": {
+          "nodeType": "output",
+          "label": "20240424_144734_00212_nzgvv.9",
+          "stageId": "20240424_144734_00212_nzgvv.9",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "8.10ms",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "0.00s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 1,
+            "rawInputDataSize": "2458B",
+            "rawInputPositions": 25
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 1200,
+          "x": 800
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "10",
+        "type": "customNode",
+        "data": {
+          "nodeType": "output",
+          "label": "20240424_144734_00212_nzgvv.10",
+          "stageId": "20240424_144734_00212_nzgvv.10",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "9.10ms",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "0.00s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 1,
+            "rawInputDataSize": "1390B",
+            "rawInputPositions": 5
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 1200,
+          "x": 1200
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      },
+      {
+        "id": "11",
+        "type": "customNode",
+        "data": {
+          "nodeType": "output",
+          "label": "20240424_144734_00212_nzgvv.11",
+          "stageId": "20240424_144734_00212_nzgvv.11",
+          "stageStats": {
+            "fullyBlocked": false,
+            "totalCpuTime": "504.38us",
+            "bufferedDataSize": "0B",
+            "totalBlockedTime": "0.00s",
+            "userMemoryReservation": "0B",
+            "queuedDrivers": 0,
+            "runningDrivers": 0,
+            "completedDrivers": 1,
+            "rawInputDataSize": "0B",
+            "rawInputPositions": 1
+          },
+          "state": "FINISHED"
+        },
+        "position": {
+          "y": 800,
+          "x": 2000
+        },
+        "style": {
+          "width": "400px",
+          "height": "max-content"
+        },
+        "targetPosition": "top",
+        "sourcePosition": "bottom"
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge0-1",
+        "source": "0",
+        "target": "1",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "79.0KB / 435 rows"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge1-2",
+        "source": "1",
+        "target": "2",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "142KB / 642 rows"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge2-3",
+        "source": "2",
+        "target": "3",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "14.5MB / 800K rows"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge2-4",
+        "source": "2",
+        "target": "4",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "1.52MB / 10.0K rows"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge2-5",
+        "source": "2",
+        "target": "5",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "552B / 25.0 rows"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge2-6",
+        "source": "2",
+        "target": "6",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "5.00B / 1 row"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge1-7",
+        "source": "1",
+        "target": "7",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "1.57MB / 117K rows"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge7-8",
+        "source": "7",
+        "target": "8",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "97.7KB / 10.0K rows"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge7-9",
+        "source": "7",
+        "target": "9",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "250B / 25.0 rows"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge7-10",
+        "source": "7",
+        "target": "10",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "5.00B / 1 row"
+        },
+        "type": "custom"
+      },
+      {
+        "id": "edge1-11",
+        "source": "1",
+        "target": "11",
+        "animated": true,
+        "style": {
+          "stroke": "#fff"
+        },
+        "data": {
+          "label": "9.00B / 1 row"
+        },
+        "type": "custom"
+      }
+    ]
+  },
+  "execution_metrics": [
+    {
+      "stage": "20240424_144734_00212_nzgvv.0",
+      "startTime": "2024-04-24T14:47:37.451Z",
+      "realStartTime": "2024-04-24T14:47:40.449Z",
+      "endTime": "2024-04-24T14:47:40.466Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.1",
+      "startTime": "2024-04-24T14:47:37.428Z",
+      "realStartTime": "2024-04-24T14:47:40.320Z",
+      "endTime": "2024-04-24T14:47:40.449Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.2",
+      "startTime": "2024-04-24T14:47:37.073Z",
+      "realStartTime": "2024-04-24T14:47:37.953Z",
+      "endTime": "2024-04-24T14:47:40.320Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.3",
+      "startTime": "2024-04-24T14:47:37.395Z",
+      "realStartTime": "2024-04-24T14:47:37.395Z",
+      "endTime": "2024-04-24T14:47:37.953Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.4",
+      "startTime": "2024-04-24T14:47:37.352Z",
+      "realStartTime": "2024-04-24T14:47:37.352Z",
+      "endTime": "2024-04-24T14:47:37.909Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.5",
+      "startTime": "2024-04-24T14:47:37.310Z",
+      "realStartTime": "2024-04-24T14:47:37.310Z",
+      "endTime": "2024-04-24T14:47:37.916Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.6",
+      "startTime": "2024-04-24T14:47:37.271Z",
+      "realStartTime": "2024-04-24T14:47:37.271Z",
+      "endTime": "2024-04-24T14:47:37.916Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.7",
+      "startTime": "2024-04-24T14:47:37.089Z",
+      "realStartTime": "2024-04-24T14:47:38.157Z",
+      "endTime": "2024-04-24T14:47:40.166Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.8",
+      "startTime": "2024-04-24T14:47:37.196Z",
+      "realStartTime": "2024-04-24T14:47:37.196Z",
+      "endTime": "2024-04-24T14:47:38.139Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.9",
+      "startTime": "2024-04-24T14:47:37.154Z",
+      "realStartTime": "2024-04-24T14:47:37.154Z",
+      "endTime": "2024-04-24T14:47:38.157Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.10",
+      "startTime": "2024-04-24T14:47:37.121Z",
+      "realStartTime": "2024-04-24T14:47:37.121Z",
+      "endTime": "2024-04-24T14:47:38.141Z"
+    },
+    {
+      "stage": "20240424_144734_00212_nzgvv.11",
+      "startTime": "2024-04-24T14:47:37.101Z",
+      "realStartTime": "2024-04-24T14:47:37.101Z",
+      "endTime": "2024-04-24T14:47:38.377Z"
+    }
+  ]
+}

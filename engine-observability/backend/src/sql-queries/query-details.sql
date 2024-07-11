@@ -1,0 +1,30 @@
+SELECT
+    query_id,
+    query,
+    query_state,
+    plan,
+    stage_info_json,
+    user,
+    source,
+    "catalog",
+    "schema",
+    wall_time_millis,
+    cpu_time_millis,
+    peak_memory_bytes,
+    total_bytes,
+    total_rows,
+    output_bytes,
+    output_rows,
+    cumulative_memory,
+    execution_time_millis,
+    error_code,
+    error_type,
+    failure_message,
+    resource_group_id,
+    queued_time_millis,
+    planning_time_millis,
+    analysis_time_millis
+FROM
+    trino_queries
+WHERE
+    query_id = $1

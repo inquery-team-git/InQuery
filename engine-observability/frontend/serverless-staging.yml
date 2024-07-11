@@ -1,0 +1,25 @@
+name: staging-helloinquery
+
+helloinquery:
+  component: "@sls-next/serverless-component@latest"
+  inputs:
+    bucketName: helloinquery
+    bucketRegion: ap-south-1
+    description: "Lambda@Edge for helloinquery staging"
+    useServerlessTraceTarget: true
+    name:
+      defaultLambda: helloinquery-staging-lambda
+      imageLambda: helloinquery-image-lambda
+    memory:
+      defaultLambda: 1024
+      imageLambda: 2048
+    runtime:
+      defaultLambda: "nodejs16.x"
+      imageLambda: "nodejs16.x"
+    timeout:
+      defaultLambda: 20
+      imageLambda: 15
+    publicDirectoryCache: false
+    removeOldLambdaVersions: true
+    cloudfront:
+      distributionId: E2I7LSDOXCB22P

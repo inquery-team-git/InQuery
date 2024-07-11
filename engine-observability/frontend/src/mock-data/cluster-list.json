@@ -1,0 +1,15 @@
+{
+  "data": [
+      {
+          "id": "ca49d76f-c1b3-45e0-9ca7-b419b614a12e",
+          "name": "Staging Adhoc",
+          "client_id": "inquery_app",
+          "host": "34.207.69.3",
+          "port": "8081",
+          "description": "Trino cluster for staging Adhoc analysis",
+          "enabled": true,
+          "timestamp": "2024-05-09T13:02:56.437Z"
+      }
+  ],
+  "hasNextPage": false
+}

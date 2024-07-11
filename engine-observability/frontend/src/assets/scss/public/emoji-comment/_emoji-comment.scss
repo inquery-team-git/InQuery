@@ -1,0 +1,134 @@
+.reactions-wrapper {
+  float: left;
+  position: relative;
+
+  // Current Reaction List Style
+  .reactions-list {
+    float: left;
+  }
+
+  .reactions-list a {
+    float: left;
+    background: #f7f7f7;
+    border-radius: 50px;
+    padding: 7px 12px 7px 12px;
+    margin-left: 6px;
+  }
+  .reactions-list a:hover {
+    background: #f2f2f2;
+  }
+  .reactions-list a.active {
+    background: #fff7e4;
+  }
+  .reactions-list a:last-child {
+    margin-right: 10px;
+  }
+  .reactions-list a:first-child {
+    margin-left: 0px;
+  }
+  .reactions-list a img {
+    width: 20px;
+    height: 20px;
+    float: left;
+  }
+
+  p.number {
+    float: left;
+    padding: 2.5px 5px 0px 10px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12.5px;
+    line-height: 16px;
+    text-align: center;
+    color: #8285a5;
+    transition: color 0.5s ease, width 0.5s ease;
+    margin: 0 !important;
+  }
+
+  // Add Reaction Button Style
+  .reactions-menu-wrapper {
+    float: left;
+    position: relative;
+
+    a.reaction-menu-trigger {
+      float: left;
+      background: #f6f6f6;
+      border-radius: 50px;
+      padding: 7px 12px 7px 12px;
+    }
+    a.reaction-menu-trigger.active {
+      background: #fff4da;
+    }
+    a.reaction-menu-trigger:hover {
+      background: #fff4da;
+    }
+    a.reaction-menu-trigger img {
+      width: 20px;
+      height: 20px;
+      float: left;
+    }
+
+    .add {
+      height: 15px;
+      width: 15px;
+      float: left;
+      margin: 3px 0px 0px 9px;
+    }
+  }
+
+  // Add Reaction Menu List Style
+  .reactions-menu {
+    background: #ffffff;
+    border: 1px solid #ececf4;
+    box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    position: absolute;
+    bottom: 41px;
+    width: 268px;
+    right: 0px;
+    padding: 6px 8px;
+    display: none;
+    animation: fadeInUp;
+    animation-duration: 0.4s;
+    z-index: 500;
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 10%, 0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+  .reactions-menu a {
+    float: left;
+    padding: 5px 10px;
+    width: 46px;
+    background-color: #fff;
+    border-radius: 9px;
+    margin: 0px 2px;
+  }
+  .reactions-menu a:hover {
+    background-color: #f4f4f4;
+  }
+  .reactions-menu a.active {
+    background-color: #f4f4f4;
+  }
+}
+
+@media (max-width: 780px) {
+  .reactions-wrapper {
+    .reactions-list {
+      display: none;
+    }
+
+    .reactions-menu {
+      left: 0px;
+      right: unset;
+    }
+  }
+}

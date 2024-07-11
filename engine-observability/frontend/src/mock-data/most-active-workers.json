@@ -1,0 +1,23 @@
+[
+  {
+    "worker_id": "trino-coordinator-587c77cd9d-mb9fh",
+    "system_cpu_load": 0.0120481927710843,
+    "mem_usage": "0.0000000000000000000000000000",
+    "system_uptime": 190080,
+    "query_id": null
+  },
+  {
+    "worker_id": "trino-worker-64f794d687-cnm7k",
+    "system_cpu_load": 0.012012012012012,
+    "mem_usage": "0.0000000000000000000000000000",
+    "system_uptime": 93312,
+    "query_id": null
+  },
+  {
+    "worker_id": "trino-worker-64f794d687-vkgsw",
+    "system_cpu_load": 0.00900900900900901,
+    "mem_usage": "0.03494726760046822684",
+    "system_uptime": 353376,
+    "query_id": "20240319_101020_00452_3shp8"
+  }
+]

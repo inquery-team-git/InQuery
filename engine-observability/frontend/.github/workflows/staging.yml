@@ -1,0 +1,53 @@
+#
+# GitHub Action for Serverless NextJS staging environment
+#
+name: Deploy Inquery Staging
+on:
+  push:
+    branches: [staging]
+  pull_request:
+    branches: [staging]
+  workflow_dispatch:
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - uses: canastro/copy-file-action@master
+        with:
+          source: "serverless-staging.yml"
+          target: "serverless.yml"
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.13.1"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # - name: Run tests
+      #   run: npm run test:ci
+
+      - name: Serverless AWS authentication
+        run: npx serverless --component=serverless-next config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }} --region ${{ secrets.AWS_REGION }}
+
+      # comment out this section on initial deploy
+      # - name: Download `.serverless` state from S3
+      #   run: aws s3 sync s3://bhall2001-serverless-state-bucket/your-site-name/staging/.serverless .serverless --delete
+      # end comment out this section on initial deploy
+
+      - name: Deploy to AWS
+        run: npx serverless
+
+      # - name: Upload `.serverless` state to S3
+      #   run: aws s3 sync .serverless s3://helloinquery.com/.serverless --delete

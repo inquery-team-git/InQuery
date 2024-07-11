@@ -1,0 +1,18 @@
+.lables {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 -5px -5px 0;
+
+  .chip {
+    margin: 0px 5px 5px 0px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+  }
+
+  .selectedChip {
+    background-color: transparent;
+    border: 2px solid #2aaf66;
+    color: #2aaf66;
+  }
+}

@@ -1,0 +1,22 @@
+.checkboxInput {
+  .checkboxLabel {
+    margin: 0 10px;
+    font-size: 15px;
+    line-height: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .iconCheck {
+    font-size: 13px;
+    padding: 2px 0px 5px;
+    transition: all 0.1s ease-in-out;
+  }
+  .checked {
+    color: #2aaf66;
+  }
+}

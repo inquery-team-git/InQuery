@@ -1,0 +1,71 @@
+//
+// Nav
+//
+
+
+// Nav wrapper (container)
+
+// Nav wrapper
+.nav-wrapper {
+    padding: 1rem 0;
+    @include border-top-radius($card-border-radius);
+
+    + .card {
+        @include border-top-radius(0);
+        @include border-bottom-radius($card-border-radius);
+    }
+}
+
+
+// Nav links
+
+.nav-link {
+    color: $nav-link-color;
+
+    &:hover {
+        color: $nav-link-hover-color;
+    }
+
+    i.ni {
+        position: relative;
+        top: 2px;
+    }
+}
+
+.nav-item.active-pro {
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  background:  $table-head-bg;
+}
+.nav-item.active-pro-icon {
+  width: 36px;
+  height: 36px;
+  background: #E0E0E0;
+  border-radius: 50%;
+  display: inline-flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 0 20px;
+  opacity: 0.7;
+}
+
+.nav-item.active-pro-icon:hover {
+  opacity: 1;
+  background: #D3D3D3;
+}
+
+.profileSection {
+  margin: 0px;
+}
+
+@media (max-width: 768px){
+  .nav-item.active-pro-icon {
+    margin: 0 15px 10px 0;
+    display: none;
+  }
+  .profileSection {
+    margin-right: 15px;
+  }
+}

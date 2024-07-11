@@ -1,0 +1,39 @@
+.material-dialog {
+  .dialog-button {
+    background: #ffffff;
+    color: #525df9;
+    font-weight: 500;
+    border-radius: 40px;
+    min-width: 100px;
+    font-size: 14px;
+    height: 40px;
+    line-height: 30px;
+    margin-left: 20px;
+    border: 1px solid #525df9;
+
+    &:hover {
+      border: 1px solid #525df9;
+      background: transparent;
+    };
+  }
+
+  .dialog-description {
+    font-size: 15px;
+    color: #000000;
+    letter-spacing: 0.16px;
+    word-spacing: 0.32px;
+  }
+
+  .dialog-title {
+    font-size: 24px;
+    color: #000000;
+    font-weight: bold;
+    letter-spacing: 0.16px;
+    word-spacing: 0.32px;
+  }
+
+  .dialog-paper {
+    min-width: 550px;
+    min-height: 180px;
+  }
+}

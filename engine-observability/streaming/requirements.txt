@@ -1,0 +1,10 @@
+psycopg2-binary==2.9.9
+mysql-connector-python==8.4.0
+pandas==2.2.2
+numpy==1.26.4
+requests==2.32.3
+aiohttp==3.9.5
+pytz==2024.1
+redis==5.0.6
+nest-asyncio==1.6.0
+apscheduler==3.10.4

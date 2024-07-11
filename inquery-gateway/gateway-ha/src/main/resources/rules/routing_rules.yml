@@ -1,0 +1,6 @@
+---
+name: "route_to_small_cluster"
+description: "if query from management or query is small, route to small cluster"
+condition: 'Integer.parseInt(request.getHeader("X-Trino-Estimated-Cpu-Time")) < 5  || request.getHeader("X-Trino-User") == "mgmt"'
+actions:
+  - 'result.put("routingGroup", "small_query")'

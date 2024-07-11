@@ -1,0 +1,100 @@
+.main-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #F4F7FE;
+    min-width: 100vw;
+    min-height: 100vh;
+    padding: 0 0 50px;
+    box-sizing: border-box;
+
+    // Navbar
+    .navbar-top {
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        background-color: transparent;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        border-bottom: 1px solid #efefef;
+        padding: 0.5rem;
+
+        .navbar-brand-img {
+            max-height: 2.5rem;
+        }
+    }
+
+    .navbar-route {
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+    .navbar-route .nav-link {
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #000000;
+    }
+    .navbar-route .nav-link.active {
+        background: #D3D3D3;
+    }
+    .navbar-route .nav-link:hover {
+        opacity: 1;
+        background: #D3D3D3;
+    }
+    .navbar-route .nav-link>i {
+        min-width: 2.25rem;
+        font-size: .9375rem;
+        line-height: 1.5rem;
+    }
+
+    // Container
+    .container-fluid {
+        @include media-breakpoint-up(md) {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+
+    @media (max-width: 768px){
+        .container-fluid {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+        .navbar-route {
+            display: none;
+        }
+    }
+
+    .hide-top-menu {}
+
+    @media (max-width: 768px){
+      .hide-top-menu {
+          display: none;
+      }
+  }
+}
+
+
+// Offsets the main content depending on the sidebar positioning
+
+.navbar-vertical.navbar-expand {
+    @each $breakpoint,
+    $dimension in $grid-breakpoints {
+
+        &-#{$breakpoint} {
+
+            @include media-breakpoint-up(#{$breakpoint}) {
+
+                // Left
+                &.fixed-left+.main-content {
+                    margin-left: $navbar-vertical-width;
+                }
+
+                // Right
+                &.fixed-right+.main-content {
+                    margin-right: $navbar-vertical-width;
+                }
+            }
+        }
+    }
+}

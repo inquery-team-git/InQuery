@@ -1,0 +1,12 @@
+@import "changelogpreview";
+@import "changelogedit";
+@import "changelogsidebar";
+@import "changeloglist";
+
+.changelog {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow-y: hidden;
+  overflow-x: auto;
+}

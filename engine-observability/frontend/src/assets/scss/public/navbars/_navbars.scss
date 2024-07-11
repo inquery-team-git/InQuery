@@ -1,0 +1,19 @@
+.public-navbar {
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #efefef;
+  margin: 0 0 32px;
+
+  .container-fluid {
+    padding: 0px !important;
+  }
+}
+
+@media (max-width: 780px) {
+  .public-navbar {
+    margin: 0 0 16px;
+  }
+}
+
+@media (min-width: 781px) and (max-width: 1080px) {
+}

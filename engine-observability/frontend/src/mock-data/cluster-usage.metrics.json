@@ -1,0 +1,53 @@
+[
+  {
+    "id": "cpu_time",
+    "title": "CPU Time",
+    "chart": "bar",
+    "scaleType": "band",
+    "color": "orange",
+    "xAxis": [
+      "Elizabeth",
+      "William",
+      "Michael",
+      "James",
+      "Jennifer",
+      "John",
+      "Robert"
+    ],
+    "yAxis": [1.2, 1.19, 1.15, 1.12, 1.11, 1.08, 1.06]
+  },
+  {
+    "id": "total_queries",
+    "title": "Total Queries",
+    "chart": "bar",
+    "scaleType": "band",
+    "color": "gray",
+    "xAxis": [
+      "Elizabeth",
+      "William",
+      "Michael",
+      "James",
+      "Jennifer",
+      "John",
+      "Robert"
+    ],
+    "yAxis": [58, 56, 54, 53, 53, 52, 50]
+  },
+  {
+    "id": "gb_scanned",
+    "title": "GB Scanned",
+    "chart": "bar",
+    "scaleType": "band",
+    "color": "blue",
+    "xAxis": [
+      "Elizabeth",
+      "William",
+      "Michael",
+      "James",
+      "Jennifer",
+      "John",
+      "Robert"
+    ],
+    "yAxis": [58, 56, 54, 53, 53, 52, 50]
+  }
+]
