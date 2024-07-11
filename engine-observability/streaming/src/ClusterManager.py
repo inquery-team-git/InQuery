@@ -6,6 +6,7 @@ import time
 import os
 import multiprocessing
 import psycopg2
+import json
 import redis.asyncio as aioredis
 import mysql.connector as connector
 from datetime import datetime
@@ -28,7 +29,8 @@ class ClusterManager:
     async def start(self):
         await self.test_redis_connection()
         pubsub = self.redis_client.pubsub()
-        await pubsub.subscribe("cluster_update")
+        channels = ['cluster_create', 'cluster_update', 'cluster_delete']
+        await pubsub.subscribe(*channels)
         asyncio.create_task(self.listen_for_updates(pubsub))
 
         # Initial load of clusters
@@ -50,8 +52,12 @@ class ClusterManager:
         async for message in pubsub.listen():
             if message["type"] == "message":
                 event_type = message["channel"].decode("utf-8")
-                print(f"Received {event_type} message: {message['data']}")
-                # await self.update_clusters(event_type, message["data"])
+                data_string = message["data"].decode("utf-8")
+                data_dict = json.loads(data_string)
+                data = data_dict['data']
+                pattern = data_dict["pattern"]
+                print(f"Received {event_type} {pattern} message: {data}")
+                await self.update_clusters(pattern, data)
 
     async def update_clusters(self, event_type=None, data=None):
         db_conn = Database()

@@ -7,11 +7,19 @@ import { WorkerMetricsModule } from '../workerMetrics/workerMetrics.module';
 import { RelationalClustersPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module';
 import { ConnectionService } from 'src/utils/connection.service';
 import { RedisService } from 'src/pubsub/redis';
+import { ClusterMetricsModule } from 'src/clusterMetrics/clusterMetrics.module';
+import { QueryMetricsModule } from 'src/queryMetrics/queryMetrics.module';
 
 const infrastructurePersistenceModule = RelationalClustersPersistenceModule;
 
 @Module({
-  imports: [WorkerMetricsModule, infrastructurePersistenceModule, FilesModule],
+  imports: [
+    infrastructurePersistenceModule,
+    FilesModule,
+    WorkerMetricsModule,
+    ClusterMetricsModule,
+    QueryMetricsModule,
+  ],
   controllers: [ClustersController],
   providers: [ConnectionService, ClustersService, RedisService],
   exports: [ClustersService, infrastructurePersistenceModule],

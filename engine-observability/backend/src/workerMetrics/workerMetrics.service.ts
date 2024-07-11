@@ -173,4 +173,8 @@ export class WorkerMetricsService {
     const queryBuilder = AppDataSource.createEntityManager().query(sql);
     return queryBuilder;
   }
+
+  async deleteByCluster(clusterId: WorkerMetrics['cluster']): Promise<void> {
+    return this.workerMetricsRepository.hardDeleteByCluster(clusterId);
+  }
 }

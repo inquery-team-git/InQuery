@@ -12,6 +12,7 @@ import {
 import { ClusterMetrics } from '../../../../domain/clusterMetrics';
 import { ClusterMetricsRepository } from '../../clusterMetrics.repository';
 import { ClusterMetricsMapper } from '../mappers/clusterMetrics.mapper';
+import { ClustersEntity } from 'src/clusters/infrastructure/persistence/relational/entities/clusters.entity';
 
 @Injectable()
 export class ClusterMetricsRelationalRepository
@@ -93,5 +94,13 @@ export class ClusterMetricsRelationalRepository
 
   async softDelete(id: ClusterMetrics['id']): Promise<void> {
     await this.clusterMetricsRepository.softDelete(id);
+  }
+
+  async hardDeleteByCluster(
+    clusterId: ClusterMetrics['cluster'],
+  ): Promise<void> {
+    await this.clusterMetricsRepository.delete({
+      cluster: clusterId as unknown as ClustersEntity,
+    });
   }
 }

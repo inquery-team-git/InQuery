@@ -145,35 +145,14 @@ export class ClustersService {
       });
   }
 
-  async deleteCluster(id: Cluster['id']): Promise<Cluster | null> {
+  async deleteCluster(id: Cluster['id']): Promise<void> {
     const clientId = this.configService.getOrThrow('app.clientId', {
       infer: true,
     });
-    const clusterObj = await this.clustersRepository.findOne({
-      id,
-      deleted: false,
-      client_id: clientId,
-    });
-    if (!clusterObj) {
-      throw new HttpException(
-        'Cluster Not Found.',
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
-    }
 
-    const clonedPayload = { deleted: true, enabled: false };
-    return this.clustersRepository
-      .update(id, clonedPayload)
-      .then(async (data) => {
-        await this.redisService.publish('cluster_delete', data);
-        return data;
-      });
-    // return this.clustersRepository
-    //   .hardDelete(id, clientId)
-    //   .then(async (data) => {
-    //     await this.redisService.publish('cluster_delete', data);
-    //     return data;
-    //   });
+    return this.clustersRepository.hardDelete(id, clientId).then(async () => {
+      await this.redisService.publish('cluster_delete', { id });
+    });
   }
 
   async addClusterWorkerMapping(

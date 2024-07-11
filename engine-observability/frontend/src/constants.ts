@@ -38,12 +38,12 @@ export const timePeriodFilters = [
     text: 'Last 5 minutes',
     value: 'last_5_minutes',
     type: 'minute',
-    intervalPeriod: 5 * 1000,
+    intervalPeriod: 10 * 1000,
   },
   {
     text: 'Last minute',
     value: 'last_minute',
     type: 'second',
-    intervalPeriod: 3 * 1000,
+    intervalPeriod: 5 * 1000,
   },
 ];

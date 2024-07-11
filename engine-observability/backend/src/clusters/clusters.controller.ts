@@ -28,6 +28,11 @@ import { ConnectionService } from 'src/utils/connection.service';
 import { TestClusterConnectionDto } from './dto/test-cluster.dto';
 import { NullableType } from 'src/utils/types/nullable.type';
 import { WorkerMetrics } from 'src/workerMetrics/domain/workerMetrics';
+import { ConfigService } from '@nestjs/config';
+import { AllConfigType } from 'src/config/config.type';
+import { ClusterMetricsService } from 'src/clusterMetrics/clusterMetrics.service';
+import { QueryMetricsService } from 'src/queryMetrics/queryMetrics.service';
+import { WorkerMetricsService } from 'src/workerMetrics/workerMetrics.service';
 
 // @ApiBearerAuth()
 // @Roles(RoleEnum.admin)
@@ -39,8 +44,12 @@ import { WorkerMetrics } from 'src/workerMetrics/domain/workerMetrics';
 })
 export class ClustersController {
   constructor(
-    private readonly clustersService: ClustersService,
+    private readonly configService: ConfigService<AllConfigType>,
     private readonly connectionService: ConnectionService,
+    private readonly clustersService: ClustersService,
+    private readonly clusterMetricsService: ClusterMetricsService,
+    private readonly queryMetricsService: QueryMetricsService,
+    private readonly workerMetricsService: WorkerMetricsService,
   ) {}
 
   @SerializeOptions({
@@ -143,7 +152,23 @@ export class ClustersController {
     type: String,
     required: true,
   })
-  async deleteCluster(@Param('id') id: Cluster['id']): Promise<Cluster | null> {
+  async deleteCluster(@Param('id') id: Cluster['id']): Promise<void> {
+    const clientId = this.configService.getOrThrow('app.clientId', {
+      infer: true,
+    });
+    const clusterObj = await this.clustersService.getCluster({
+      id,
+      client_id: clientId,
+    });
+    if (!clusterObj) {
+      throw new HttpException(
+        'Cluster Not Found.',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+    await this.clusterMetricsService.deleteByCluster(id as unknown as Cluster);
+    await this.queryMetricsService.deleteByCluster(id as unknown as Cluster);
+    await this.workerMetricsService.deleteByCluster(id as unknown as Cluster);
     return this.clustersService.deleteCluster(id);
   }
 

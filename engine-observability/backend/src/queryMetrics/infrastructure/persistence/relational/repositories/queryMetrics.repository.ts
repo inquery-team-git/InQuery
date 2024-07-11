@@ -12,6 +12,7 @@ import {
 import { QueryMetrics } from '../../../../domain/queryMetrics';
 import { QueryMetricsRepository } from '../../queryMetrics.repository';
 import { QueryMetricsMapper } from '../mappers/queryMetrics.mapper';
+import { ClustersEntity } from 'src/clusters/infrastructure/persistence/relational/entities/clusters.entity';
 
 @Injectable()
 export class QueryMetricsRelationalRepository
@@ -65,5 +66,11 @@ export class QueryMetricsRelationalRepository
     });
 
     return entity ? QueryMetricsMapper.toDomain(entity) : null;
+  }
+
+  async hardDeleteByCluster(clusterId: QueryMetrics['cluster']): Promise<void> {
+    await this.queryMetricsRepository.delete({
+      cluster: clusterId as unknown as ClustersEntity,
+    });
   }
 }

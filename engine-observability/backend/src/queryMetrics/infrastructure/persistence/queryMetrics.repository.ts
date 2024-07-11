@@ -15,4 +15,8 @@ export abstract class QueryMetricsRepository {
     sortOptions?: SortQueryMetricsDto[] | null;
     paginationOptions: IPaginationOptions;
   }): Promise<QueryMetrics[]>;
+
+  abstract hardDeleteByCluster(
+    ckusterId: QueryMetrics['cluster'],
+  ): Promise<void>;
 }

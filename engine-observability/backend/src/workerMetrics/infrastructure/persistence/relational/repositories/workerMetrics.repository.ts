@@ -12,6 +12,7 @@ import {
 import { WorkerMetrics } from '../../../../domain/workerMetrics';
 import { WorkerMetricsRepository } from '../../workerMetrics.repository';
 import { WorkerMetricsMapper } from '../mappers/workerMetrics.mapper';
+import { ClustersEntity } from 'src/clusters/infrastructure/persistence/relational/entities/clusters.entity';
 
 @Injectable()
 export class WorkerMetricsRelationalRepository
@@ -65,5 +66,13 @@ export class WorkerMetricsRelationalRepository
     });
 
     return entity ? WorkerMetricsMapper.toDomain(entity) : null;
+  }
+
+  async hardDeleteByCluster(
+    clusterId: WorkerMetrics['cluster'],
+  ): Promise<void> {
+    await this.workerMetricsRepository.delete({
+      cluster: clusterId as unknown as ClustersEntity,
+    });
   }
 }
