@@ -6,6 +6,12 @@
     <b>Trino Observability and Traffic Management</b>
 </p>
 
+<h3 align="center">
+  <a href="https://inquery-data.com">Website</a> &bull;
+  <a href="[https://join.slack.com/t/paradedbcommunity/shared_invite/zt-2lkzdsetw-OiIgbyFeiibd1DG~6wFgTQ](https://join.slack.com/t/inquery-group/shared_invite/zt-2jaau4ro3-XO04RWzVC71WIWaEnfcU3g)">Community</a> &bull;
+  <a href="[https://docs.paradedb.com/changelog/](https://www.youtube.com/playlist?list=PLZj07ju1Uu4APxfYwj4GW7zeULa_I6ZqJ)">Demo Videos</a>
+</h3>
+
 # InQuery
 
 InQuery is a collection of products and tools for optimizing your lakehouse querying performance, starting with your Trino deployment. 
@@ -46,7 +52,7 @@ Push to the branch (git push origin feature/your-feature-name).<br>
 Create a new Pull Request.<br>
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the GNU Affero General Public License v3.0 and as commercial software. For commercial licensing, please contact us at founders@inquery-data.com
 
 ## Contact 
 For support or inquiries, please contact us at founders@inquery-data.com
