@@ -20,6 +20,7 @@ import { ClustersEntity } from 'src/clusters/infrastructure/persistence/relation
 @Entity({
   name: 'cluster_metrics',
 })
+@Index(['cluster', 'timestamp'])
 export class ClusterMetricsEntity
   extends EntityRelationalHelper
   implements ClusterMetrics
@@ -73,6 +74,7 @@ export class ClusterMetricsEntity
   @Transform((val) => BigInt(val.value))
   uptime: bigint;
 
+  @Index()
   @CreateDateColumn({
     name: 'timestamp',
     type: 'timestamp',

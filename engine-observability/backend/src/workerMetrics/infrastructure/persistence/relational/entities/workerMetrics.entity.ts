@@ -20,6 +20,7 @@ import { ClustersEntity } from 'src/clusters/infrastructure/persistence/relation
 @Entity({
   name: 'worker_metrics',
 })
+@Index(['cluster', 'insert_time'])
 export class WorkerMetricsEntity
   extends EntityRelationalHelper
   implements WorkerMetrics
@@ -89,6 +90,7 @@ export class WorkerMetricsEntity
   @Column({ nullable: true, name: 'worker_id', type: 'varchar' })
   worker_id: string;
 
+  @Index()
   @CreateDateColumn({
     name: 'insert_time',
     type: 'timestamp',

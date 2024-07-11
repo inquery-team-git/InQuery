@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import fs from 'fs';
+import _ from 'lodash';
 import { AllConfigType } from 'src/config/config.type';
 import { AppDataSource } from 'src/database/data-source';
 import { IPaginationOptions } from 'src/utils/types/pagination-options';
@@ -37,12 +38,19 @@ export class ClusterMetricsService {
   }
 
   getClusterUpTime(cluster_id: string): Promise<Record<string, any>[]> {
+    const dbType = this.configService.getOrThrow('database.type', {
+      infer: true,
+    });
     let sql = fs
       .readFileSync(
         `${this.configService.getOrThrow('app.sqlQueriesDir', { infer: true })}/cluster-up-time.sql`,
       )
       .toString();
-    sql = sql.replaceAll('$1', `"${cluster_id}"`);
+    if (dbType === 'mysql') {
+      sql = _.replace(sql, /\$1/g, `"${cluster_id}"`);
+    } else {
+      sql = _.replace(sql, /\$1/g, `'${cluster_id}'`);
+    }
     const queryBuilder = AppDataSource.createEntityManager().query(sql);
 
     return queryBuilder;
@@ -52,15 +60,24 @@ export class ClusterMetricsService {
     cluster_id: string,
     timestamps: any[],
   ): Promise<ClusterMetrics[]> {
+    const dbType = this.configService.getOrThrow('database.type', {
+      infer: true,
+    });
     let sql = fs
       .readFileSync(
         `${this.configService.getOrThrow('app.sqlQueriesDir', { infer: true })}/cluster-capacity.sql`,
       )
       .toString();
 
-    sql = sql.replaceAll('$1', `"${timestamps[0]}"`);
-    sql = sql.replaceAll('$2', `"${timestamps[timestamps.length - 1]}"`);
-    sql = sql.replaceAll('$3', `"${cluster_id}"`);
+    if (dbType === 'mysql') {
+      sql = _.replace(sql, /\$1/g, `"${timestamps[0]}"`);
+      sql = _.replace(sql, /\$2/g, `"${timestamps[timestamps.length - 1]}"`);
+      sql = _.replace(sql, /\$3/g, `"${cluster_id}"`);
+    } else {
+      sql = _.replace(sql, /\$1/g, `'${timestamps[0]}'`);
+      sql = _.replace(sql, /\$2/g, `'${timestamps[timestamps.length - 1]}'`);
+      sql = _.replace(sql, /\$3/g, `'${cluster_id}'`);
+    }
     const queryBuilder = AppDataSource.createEntityManager().query(sql);
 
     return queryBuilder;
@@ -70,16 +87,26 @@ export class ClusterMetricsService {
     cluster_id: string,
     timestamps: any[],
   ): Promise<FailureMetrics[]> {
+    const dbType = this.configService.getOrThrow('database.type', {
+      infer: true,
+    });
     let sql = fs
       .readFileSync(
         `${this.configService.getOrThrow('app.sqlQueriesDir', { infer: true })}/query-failure-rate.sql`,
       )
       .toString();
 
-    sql = sql.replaceAll('$1', `"${cluster_id}"`);
-    sql = sql.replaceAll('$2', `"${timestamps[0]}"`);
-    sql = sql.replaceAll('$3', `"${timestamps[timestamps.length - 1]}"`);
-    sql = sql.replaceAll('$4', `10`);
+    if (dbType === 'mysql') {
+      sql = _.replace(sql, /\$1/g, `"${cluster_id}"`);
+      sql = _.replace(sql, /\$2/g, `"${timestamps[0]}"`);
+      sql = _.replace(sql, /\$3/g, `"${timestamps[timestamps.length - 1]}"`);
+      sql = _.replace(sql, /\$4/g, `10`);
+    } else {
+      sql = _.replace(sql, /\$1/g, `'${cluster_id}'`);
+      sql = _.replace(sql, /\$2/g, `'${timestamps[0]}'`);
+      sql = _.replace(sql, /\$3/g, `'${timestamps[timestamps.length - 1]}'`);
+      sql = _.replace(sql, /\$4/g, `10`);
+    }
     const queryBuilder = AppDataSource.createEntityManager().query(sql);
     return queryBuilder;
   }
@@ -88,15 +115,24 @@ export class ClusterMetricsService {
     cluster_id: string,
     timestamps: any[],
   ): Promise<Record<string, any>[]> {
+    const dbType = this.configService.getOrThrow('database.type', {
+      infer: true,
+    });
     let sql = fs
       .readFileSync(
         `${this.configService.getOrThrow('app.sqlQueriesDir', { infer: true })}/query-failure-types.sql`,
       )
       .toString();
 
-    sql = sql.replaceAll('$1', `"${cluster_id}"`);
-    sql = sql.replaceAll('$2', `"${timestamps[0]}"`);
-    sql = sql.replaceAll('$3', `"${timestamps[timestamps.length - 1]}"`);
+    if (dbType === 'mysql') {
+      sql = _.replace(sql, /\$1/g, `"${cluster_id}"`);
+      sql = _.replace(sql, /\$2/g, `"${timestamps[0]}"`);
+      sql = _.replace(sql, /\$3/g, `"${timestamps[timestamps.length - 1]}"`);
+    } else {
+      sql = _.replace(sql, /\$1/g, `'${cluster_id}'`);
+      sql = _.replace(sql, /\$2/g, `'${timestamps[0]}'`);
+      sql = _.replace(sql, /\$3/g, `'${timestamps[timestamps.length - 1]}'`);
+    }
     const queryBuilder = AppDataSource.createEntityManager().query(sql);
     return queryBuilder;
   }
@@ -105,15 +141,24 @@ export class ClusterMetricsService {
     cluster_id: string,
     timestamps: any[],
   ): Promise<LatencyMetrics[]> {
+    const dbType = this.configService.getOrThrow('database.type', {
+      infer: true,
+    });
     let sql = fs
       .readFileSync(
         `${this.configService.getOrThrow('app.sqlQueriesDir', { infer: true })}/query-latency.sql`,
       )
       .toString();
 
-    sql = sql.replaceAll('$1', `"${cluster_id}"`);
-    sql = sql.replaceAll('$2', `"${timestamps[0]}"`);
-    sql = sql.replaceAll('$3', `"${timestamps[timestamps.length - 1]}"`);
+    if (dbType === 'mysql') {
+      sql = _.replace(sql, /\$1/g, `"${cluster_id}"`);
+      sql = _.replace(sql, /\$2/g, `"${timestamps[0]}"`);
+      sql = _.replace(sql, /\$3/g, `"${timestamps[timestamps.length - 1]}"`);
+    } else {
+      sql = _.replace(sql, /\$1/g, `'${cluster_id}'`);
+      sql = _.replace(sql, /\$2/g, `'${timestamps[0]}'`);
+      sql = _.replace(sql, /\$3/g, `'${timestamps[timestamps.length - 1]}'`);
+    }
     const queryBuilder = AppDataSource.createEntityManager().query(sql);
     return queryBuilder;
   }
@@ -122,15 +167,24 @@ export class ClusterMetricsService {
     cluster_id: string,
     timestamps: any[],
   ): Promise<Record<string, any>[]> {
+    const dbType = this.configService.getOrThrow('database.type', {
+      infer: true,
+    });
     let sql = fs
       .readFileSync(
         `${this.configService.getOrThrow('app.sqlQueriesDir', { infer: true })}/query-latency-bars.sql`,
       )
       .toString();
 
-    sql = sql.replaceAll('$1', `"${cluster_id}"`);
-    sql = sql.replaceAll('$2', `"${timestamps[0]}"`);
-    sql = sql.replaceAll('$3', `"${timestamps[timestamps.length - 1]}"`);
+    if (dbType === 'mysql') {
+      sql = _.replace(sql, /\$1/g, `"${cluster_id}"`);
+      sql = _.replace(sql, /\$2/g, `"${timestamps[0]}"`);
+      sql = _.replace(sql, /\$3/g, `"${timestamps[timestamps.length - 1]}"`);
+    } else {
+      sql = _.replace(sql, /\$1/g, `'${cluster_id}'`);
+      sql = _.replace(sql, /\$2/g, `'${timestamps[0]}'`);
+      sql = _.replace(sql, /\$3/g, `'${timestamps[timestamps.length - 1]}'`);
+    }
     const queryBuilder = AppDataSource.createEntityManager().query(sql);
     return queryBuilder;
   }

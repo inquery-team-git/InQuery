@@ -1,9 +1,9 @@
 import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
 import Decimal from 'decimal.js';
-import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import { Transform } from 'class-transformer';
-import { Query } from '../../../../domain/queries';
+import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import { DecimalToString } from 'src/utils/transformers/decimal.transformer';
+import { Query } from '../../../../domain/queries';
 
 @Entity({
   name: 'trino_queries',
@@ -77,4 +77,77 @@ export class QueriesEntity extends EntityRelationalHelper implements Query {
 
   @Column({ nullable: true, name: 'stage_info_json', type: 'text' })
   stage_info_json: string | null;
+
+  @Column({ nullable: false, name: 'plan', type: 'text' })
+  plan: string;
+
+  @Column({ nullable: true, name: 'wall_time_millis', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  wall_time_millis: bigint;
+
+  @Column({ nullable: true, name: 'execution_time_millis', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  execution_time_millis: bigint;
+
+  @Column({ nullable: true, name: 'queued_time_millis', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  queued_time_millis: bigint;
+
+  @Column({ nullable: true, name: 'planning_time_millis', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  planning_time_millis: bigint;
+
+  @Column({ nullable: true, name: 'analysis_time_millis', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  analysis_time_millis: bigint;
+
+  @Column({ nullable: true, name: 'peak_memory_bytes', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  peak_memory_bytes: bigint;
+
+  @Column({ nullable: true, name: 'total_bytes', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  total_bytes: bigint;
+
+  @Column({ nullable: true, name: 'total_rows', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  total_rows: bigint;
+
+  @Column({ nullable: true, name: 'output_bytes', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  output_bytes: bigint;
+
+  @Column({ nullable: true, name: 'output_rows', type: 'bigint' })
+  @Transform((val) => BigInt(val.value))
+  output_rows: bigint;
+
+  @Column({ nullable: false, name: 'error_code', type: 'varchar', length: 255 })
+  error_code: string;
+
+  @Column({ nullable: false, name: 'error_type', type: 'varchar', length: 255 })
+  error_type: string;
+
+  @Column({
+    nullable: false,
+    name: 'failure_type',
+    type: 'varchar',
+    length: 255,
+  })
+  failure_type: string;
+
+  @Column({
+    nullable: false,
+    name: 'failure_message',
+    type: 'varchar',
+    length: 255,
+  })
+  failure_message: string;
+
+  @Column({
+    nullable: false,
+    name: 'resource_group_id',
+    type: 'varchar',
+    length: 255,
+  })
+  resource_group_id: string;
 }

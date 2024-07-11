@@ -19,6 +19,10 @@ import { ClustersEntity } from 'src/clusters/infrastructure/persistence/relation
 @Entity({
   name: 'query_metrics',
 })
+@Index(['cluster', 'createtime'])
+@Index(['cluster', 'createtime', 'state'])
+@Index(['cluster', 'inserted_at'])
+@Index(['cluster', 'queryid'])
 export class QueryMetricsEntity
   extends EntityRelationalHelper
   implements QueryMetrics
@@ -40,6 +44,7 @@ export class QueryMetricsEntity
   @JoinColumn({ name: 'cluster', referencedColumnName: 'id' })
   cluster: ClustersEntity;
 
+  @Index()
   @CreateDateColumn({
     name: 'createtime',
     type: 'timestamp',
@@ -72,6 +77,7 @@ export class QueryMetricsEntity
   @Transform((val) => DecimalToString(val.value), { toPlainOnly: true })
   cumulativeusermemory: Decimal;
 
+  @Index()
   @Column({
     nullable: true,
     name: 'state',
@@ -80,6 +86,7 @@ export class QueryMetricsEntity
   })
   state: string;
 
+  @Index()
   @Column({
     nullable: true,
     name: 'sessionuser',
@@ -88,6 +95,7 @@ export class QueryMetricsEntity
   })
   sessionuser: string;
 
+  @Index()
   @Column({
     nullable: true,
     name: 'sessionsource',
@@ -96,6 +104,7 @@ export class QueryMetricsEntity
   })
   sessionsource: string;
 
+  @Index()
   @CreateDateColumn({
     name: 'inserted_at',
     type: 'timestamp',

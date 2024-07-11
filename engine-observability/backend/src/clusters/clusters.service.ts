@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import fs from 'fs';
+import _ from 'lodash';
 import { AppDataSource } from 'src/database/data-source';
 import { ConfigService } from '@nestjs/config';
 import { AllConfigType } from 'src/config/config.type';
@@ -62,13 +63,20 @@ export class ClustersService {
   async getWorkerClusterDetails(
     worker_id: WorkerMetrics['worker_id'],
   ): Promise<NullableType<Cluster>> {
+    const dbType = this.configService.getOrThrow('database.type', {
+      infer: true,
+    });
     let sql = fs
       .readFileSync(
         `${this.configService.getOrThrow('app.sqlQueriesDir', { infer: true })}/worker-cluster-details.sql`,
       )
       .toString();
 
-    sql = sql.replaceAll('$1', `"${worker_id}"`);
+    if (dbType === 'mysql') {
+      sql = _.replace(sql, /\$1/g, `"${worker_id}"`);
+    } else {
+      sql = _.replace(sql, /\$1/g, `'${worker_id}'`);
+    }
     const [cluster] = await AppDataSource.createEntityManager().query(sql);
 
     return cluster;

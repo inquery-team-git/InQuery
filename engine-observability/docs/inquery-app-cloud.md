@@ -33,9 +33,6 @@ If you want quick run your app, you can use following commands:
 
       ```
       DATABASE_TYPE=postgres
-      ```
-
-      ```
       DATABASE_HOST=<your-database-host>
       DATABASE_PORT=<your-database-port>
       DATABASE_USERNAME=<your-database-username>
@@ -47,9 +44,6 @@ If you want quick run your app, you can use following commands:
 
       ```
       DATABASE_TYPE=mysql
-      ```
-
-      ```
       DATABASE_HOST=<your-database-host>
       DATABASE_PORT=<your-database-port>
       DATABASE_USERNAME=<your-database-username>

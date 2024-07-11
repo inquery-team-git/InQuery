@@ -31,6 +31,7 @@ export class WorkerMetricsEntity
   @Column({ nullable: true, name: 'worker_id', type: 'varchar' })
   worker_id: string;
 
+  @Index()
   @CreateDateColumn({
     name: 'inserted_at',
     type: 'timestamp',

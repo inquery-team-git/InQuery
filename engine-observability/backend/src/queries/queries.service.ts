@@ -99,6 +99,9 @@ export class QueriesService {
   async getQueryDetails(
     fields: EntityCondition<Query>,
   ): Promise<Record<string, any>> {
+    const dbType = this.configService.getOrThrow('database.type', {
+      infer: true,
+    });
     // Cache Key
     const cacheKey = `query_details_${fields.query_id}`;
     // Check for Cache
@@ -111,7 +114,11 @@ export class QueriesService {
       )
       .toString();
 
-    sql = sql.replaceAll('$1', `"${fields.query_id}"`);
+    if (dbType === 'mysql') {
+      sql = _.replace(sql, /\$1/g, `"${fields.query_id}"`);
+    } else {
+      sql = _.replace(sql, /\$1/g, `'${fields.query_id}'`);
+    }
     const queryBuilder = AppDataSource.createEntityManager()
       .query(sql)
       .then((res) => {
