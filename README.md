@@ -8,7 +8,7 @@
 
 <h3 align="center">
   <a href="https://inquery-data.com">Website</a> &bull;
-  <a href="https://join.slack.com/t/paradedbcommunity/shared_invite/zt-2lkzdsetw-OiIgbyFeiibd1DG~6wFgTQ">Community</a> &bull;
+  <a href="https://join.slack.com/t/inquery-group/shared_invite/zt-2gj1x25qb-wCer2Hrb~WYZpOemG1WDvg">Community</a> &bull;
   <a href="https://www.youtube.com/playlist?list=PLZj07ju1Uu4APxfYwj4GW7zeULa_I6ZqJ">Demo Videos</a>
 </h3>
 
