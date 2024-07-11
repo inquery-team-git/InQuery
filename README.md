@@ -8,8 +8,8 @@
 
 <h3 align="center">
   <a href="https://inquery-data.com">Website</a> &bull;
-  <a href="[https://join.slack.com/t/paradedbcommunity/shared_invite/zt-2lkzdsetw-OiIgbyFeiibd1DG~6wFgTQ](https://join.slack.com/t/inquery-group/shared_invite/zt-2jaau4ro3-XO04RWzVC71WIWaEnfcU3g)">Community</a> &bull;
-  <a href="[https://docs.paradedb.com/changelog/](https://www.youtube.com/playlist?list=PLZj07ju1Uu4APxfYwj4GW7zeULa_I6ZqJ)">Demo Videos</a>
+  <a href="https://join.slack.com/t/paradedbcommunity/shared_invite/zt-2lkzdsetw-OiIgbyFeiibd1DG~6wFgTQ">Community</a> &bull;
+  <a href="https://www.youtube.com/playlist?list=PLZj07ju1Uu4APxfYwj4GW7zeULa_I6ZqJ">Demo Videos</a>
 </h3>
 
 # InQuery
