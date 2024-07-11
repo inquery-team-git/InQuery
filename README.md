@@ -55,6 +55,7 @@ Create a new Pull Request.<br>
 This project is licensed under the GNU Affero General Public License v3.0 and as commercial software. For commercial licensing, please contact us at founders@inquery-data.com
 
 ## Contact 
+Join our slack channel: https://join.slack.com/t/inquery-group/shared_invite/zt-2gj1x25qb-wCer2Hrb~WYZpOemG1WDvg
 For support or inquiries, please contact us at founders@inquery-data.com
 
 
