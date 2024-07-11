@@ -33,54 +33,47 @@ This document will help you how you can start only backend service for your trin
    - If your pre hosted Database is `PostgreSQL`, your Database configuration should look like below
       ```
       DATABASE_TYPE=postgres
-      DATABASE_HOST=aws-0-us-west-1.pooler.supabase.com
-      DATABASE_PORT=5432
-      DATABASE_USERNAME=postgres.calvcjohwdvsohhqdhav
-      DATABASE_PASSWORD=ih@h@J4ZjfLKMc4
-      DATABASE_NAME=cluster_api
+      DATABASE_HOST=<your-database-host>
+      DATABASE_PORT=<your-database-port>
+      DATABASE_USERNAME=<your-database-username>
+      DATABASE_PASSWORD=<your-database-password>
+      DATABASE_NAME=<your-database-name>
       DATABASE_SSL_ENABLED=false
       ```
-   
-   - If you want to use local dockerized database
-      - Run additional container ():
-
-         ```bash
-         docker compose up -d postgres adminer
-         
-         ```
-      - Your Database configuration should look like below
-         ````
-         DATABASE_TYPE=postgres
-         DATABASE_HOST=postgres
-         DATABASE_PORT=5432
-         DATABASE_USERNAME=root
-         DATABASE_PASSWORD=secret
-         DATABASE_NAME=api
-         DATABASE_SSL_ENABLED=false
-         ```
 
    - If your pre hosted Database is `MySQL`, your Database configuration should look like below
 
       ```
       DATABASE_TYPE=mysql
-      DATABASE_HOST=database-1.cte22uiuc612.us-east-2.rds.amazonaws.com
-      DATABASE_PORT=3306
-      DATABASE_USERNAME=admin
-      DATABASE_PASSWORD=mysql_pwd
-      DATABASE_NAME=mydatabase
+      DATABASE_HOST=<your-database-host>
+      DATABASE_PORT=<your-database-port>
+      DATABASE_USERNAME=<your-database-username>
+      DATABASE_PASSWORD=<your-database-password>
+      DATABASE_NAME=<your-database-name>
       DATABASE_SSL_ENABLED=true
       ```
 
+   - If you want to use local dockerized database
+      - Run additional container ():
+
+         ```bash
+         docker compose up -d database adminer
+         ```
+      - Your Database configuration should look like below
+         ````
+         DATABASE_TYPE=mysql
+         DATABASE_HOST=localhost
+         DATABASE_PORT=3306
+         DATABASE_USERNAME=user
+         DATABASE_PASSWORD=secret
+         DATABASE_NAME=inquery_app
+         DATABASE_SSL_ENABLED=false
+         ````
+
 1. Start local redis server
       ```bash
-         docker compose up -d redis
+      docker compose up -d redis
       ```
-
-1. Update values for `APP_CLIENT_ID` with unique key provided by Inquery:
-
-   ```
-   APP_CLIENT_ID=inquery_app
-   ```
 
 1. Install required node version if not already installed
 
@@ -132,11 +125,11 @@ If you want quick run your app, you can use following commands:
    - If your pre hosted Database is `PostgreSQL`, your Database configuration should look like below
       ```
       DATABASE_TYPE=postgres
-      DATABASE_HOST=aws-0-us-west-1.pooler.supabase.com
-      DATABASE_PORT=5432
-      DATABASE_USERNAME=postgres.calvcjohwdvsohhqdhav
-      DATABASE_PASSWORD=ih@h@J4ZjfLKMc4
-      DATABASE_NAME=cluster_api
+      DATABASE_HOST=<your-database-host>
+      DATABASE_PORT=<your-database-port>
+      DATABASE_USERNAME=<your-database-username>
+      DATABASE_PASSWORD=<your-database-password>
+      DATABASE_NAME=<your-database-name>
       DATABASE_SSL_ENABLED=false
       ```
    
@@ -144,19 +137,13 @@ If you want quick run your app, you can use following commands:
 
       ```
       DATABASE_TYPE=mysql
-      DATABASE_HOST=database-1.cte22uiuc612.us-east-2.rds.amazonaws.com
-      DATABASE_PORT=3306
-      DATABASE_USERNAME=admin
-      DATABASE_PASSWORD=mysql_pwd
-      DATABASE_NAME=mydatabase
+      DATABASE_HOST=<your-database-host>
+      DATABASE_PORT=<your-database-port>
+      DATABASE_USERNAME=<your-database-username>
+      DATABASE_PASSWORD=<your-database-password>
+      DATABASE_NAME=<your-database-name>
       DATABASE_SSL_ENABLED=true
       ```
-
-1. Update values for `APP_CLIENT_ID` with unique key provided by Inquery:
-
-   ```
-   APP_CLIENT_ID=inquery_app
-   ```
 
 1. Run container:
 

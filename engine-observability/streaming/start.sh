@@ -1,7 +1,7 @@
 #!/bin/sh
 # set -e
 
-/app/wait-for-it.sh postgres:5432
+/app/wait-for-it.sh $DATABASE_HOST:$DATABASE_PORT
 
 cd /app
 

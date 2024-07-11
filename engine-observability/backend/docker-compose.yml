@@ -10,23 +10,24 @@ services:
       - redis_data:/data
     restart: unless-stopped
 
-  postgres:
-    image: postgres:16.3-alpine
-    container_name: postgres
+  database:
+    image: mysql:8.0
+    container_name: inquerydb
     environment:
-      POSTGRES_USER: ${DATABASE_USERNAME}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USERNAME}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     ports:
-      - ${DATABASE_PORT}:5432
+      - "${DATABASE_PORT}:3306"
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - inquery-data:/var/lib/mysql
 
   adminer:
     image: adminer
     restart: always
     depends_on:
-      - postgres
+      - database
     ports:
       - 8080:8080
 
@@ -36,7 +37,7 @@ services:
       args:
         - NPM_TOKEN=NPM_TOKEN
     depends_on:
-      - postgres
+      - database
       - adminer
       - redis
     ports:
@@ -45,4 +46,4 @@ services:
 volumes:
   redis_data:
     driver: local
-  postgres-data:
+  inquery-data:

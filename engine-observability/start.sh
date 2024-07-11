@@ -5,7 +5,7 @@
 
 cd /app/backend
 npm run typeorm -- --dataSource=./database/data-source.js migration:run
-npm run ts-node ./database/seeds/relational/run-seed.js
+# npm run ts-node ./database/seeds/relational/run-seed.js
 
 cd ..
 cd /app

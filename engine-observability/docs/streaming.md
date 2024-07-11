@@ -25,20 +25,22 @@ This document will help you how you can start only streaming service for your tr
    cd streaming
    ```
 
-1. Change `DATABASE_HOST=postgres` to `DATABASE_HOST=localhost`
-
-1. Update values for `APP_CLIENT_ID` with unique key provided by Inquery:
-
-   ```
-   APP_CLIENT_ID=inquery_app
-   ```
-
 1. Run additional container:
 
    ```bash
-   docker compose up -d postgres adminer
-
+   docker compose up -d database adminer
    ```
+
+1. Your Database configuration should look like below
+   ````
+   DATABASE_TYPE=mysql
+   DATABASE_HOST=localhost
+   DATABASE_PORT=3306
+   DATABASE_USERNAME=user
+   DATABASE_PASSWORD=secret
+   DATABASE_NAME=inquery_app
+   DATABASE_SSL_ENABLED=false
+   ````
 
 1. Install dependency
 
@@ -77,12 +79,6 @@ If you want quick run your app, you can use following commands:
 
    ```bash
    cd streaming
-   ```
-
-1. Update values for `APP_CLIENT_ID` with unique key provided by Inquery:
-
-   ```
-   APP_CLIENT_ID=inquery_app
    ```
 
 1. Run container:

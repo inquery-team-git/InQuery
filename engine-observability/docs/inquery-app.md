@@ -30,25 +30,19 @@ If you want quick run your app, you can use following commands:
 1. Update values for `DATABASE` related environment variables with Dockerized Database Configuration:
 
    ```
-   DATABASE_TYPE=postgres
-   DATABASE_HOST=postgres
-   DATABASE_PORT=5432
-   DATABASE_USERNAME=root
+   DATABASE_TYPE=mysql
+   DATABASE_HOST=inquerydb
+   DATABASE_PORT=3306
+   DATABASE_USERNAME=user
    DATABASE_PASSWORD=secret
-   DATABASE_NAME=api
-   ```
-
-1. Update values for `APP_CLIENT_ID` with unique key provided by Inquery:
-
-   ```
-   APP_CLIENT_ID=inquery_app
+   DATABASE_NAME=inquery_app
+   DATABASE_SSL_ENABLED=false
    ```
 
 1. Run container:
 
    ```bash
-   docker compose -f docker-compose.yml --env-file env-vars up --build
-
+   docker compose -f docker-compose.yml --env-file env-vars up --build -d
    ```
 
 1. Client is running on <http://localhost:3000>
