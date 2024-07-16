@@ -52,7 +52,7 @@ Push to the branch (git push origin feature/your-feature-name).<br>
 Create a new Pull Request.<br>
 
 ## License
-This project is licensed under the GNU Affero General Public License v3.0 and as commercial software. For commercial licensing, please contact us at founders@inquery-data.com
+This project is licensed under the General Public License v3.0 and as commercial software. For commercial licensing, please contact us at founders@inquery-data.com
 
 ## Contact 
 Join our slack channel: https://join.slack.com/t/inquery-group/shared_invite/zt-2gj1x25qb-wCer2Hrb~WYZpOemG1WDvg
